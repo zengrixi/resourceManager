@@ -1,10 +1,8 @@
-﻿#ifndef __TITLEBAR_H__
-#define __TITLEBAR_H__
+﻿#ifndef TITLEBAR_H
+#define TITLEBAR_H
 
 #include <QLabel>
 #include <QWidget>
-
-#include "src/utils/macro.h"
 
 class QPushButton;
 class QHBoxLayout;
@@ -15,12 +13,9 @@ class TitleBar : public QWidget {
 public:
     TitleBar(QWidget *parent = nullptr);
     virtual ~TitleBar() override;
-    void set_title_visib();
-    QPushButton *get_selec_list() { return pselec_list_; }
 
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *event) override;
-    //    virtual void mousePressEvent(QMouseEvent *event) override;
     virtual bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
@@ -35,10 +30,9 @@ private:
     QLabel *picon_label_;
     QLabel *ptitle_label_;
     QHBoxLayout *playout_;
-    QPushButton *pselec_list_;
     QPushButton *pminimize_btn_;
     QPushButton *pmaximize_btn_;
     QPushButton *pclose_button_;
 };
 
-#endif // __TITLEBAR_H__
+#endif // TITLEBAR_H

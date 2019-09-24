@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 
+#include "src/utils/frameless_helper.h"
+#include "src/views/titlebar.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
