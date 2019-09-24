@@ -1,4 +1,4 @@
-﻿#ifndef TITLEBAR_H
+#ifndef TITLEBAR_H
 #define TITLEBAR_H
 
 #include <QLabel>

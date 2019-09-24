@@ -1,4 +1,4 @@
-﻿#include "titlebar.h"
+#include "titlebar.h"
 
 #include <QApplication>
 #include <QEvent>

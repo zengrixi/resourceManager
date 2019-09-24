@@ -16,7 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/controllers/textdelegate.cpp \
     src/main.cpp \
+    src/models/tablemodel.cpp \
     src/utils/3rdParty/NXDockWidget.cpp \
     src/utils/3rdParty/NXDockWidgetTabBar.cpp \
     src/utils/3rdParty/NXDockWidgetTabButton.cpp \
@@ -24,9 +26,12 @@ SOURCES += \
     src/utils/3rdParty/NXMainWindow.cpp \
     src/utils/frameless_helper.cpp \
     src/views/mainwindow.cpp \
+    src/views/tableview.cpp \
     src/views/titlebar.cpp
 
 HEADERS += \
+    src/controllers/textdelegate.h \
+    src/models/tablemodel.h \
     src/utils/3rdParty/NXDockWidget.h \
     src/utils/3rdParty/NXDockWidgetTabBar.h \
     src/utils/3rdParty/NXDockWidgetTabButton.h \
@@ -34,6 +39,7 @@ HEADERS += \
     src/utils/3rdParty/NXMainWindow.h \
     src/utils/frameless_helper.h \
     src/views/mainwindow.h \
+    src/views/tableview.h \
     src/views/titlebar.h
 
 # Default rules for deployment.
