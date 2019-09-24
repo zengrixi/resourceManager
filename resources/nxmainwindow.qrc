@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/Dock/resources">
+        <file>Add_File.png</file>
+        <file>close_dockwidget_hover.png</file>
+        <file>close_dockwidget_normal.png</file>
+        <file>close_dockwidget_pressed.png</file>
+        <file>Delete_File.png</file>
+        <file>Edit_File.png</file>
+        <file>File.png</file>
+        <file>Image_File.png</file>
+        <file>menu_dockwidget_hover.png</file>
+        <file>menu_dockwidget_normal.png</file>
+        <file>menu_dockwidget_pressed.png</file>
+        <file>pin_dockwidget_hover.png</file>
+        <file>pin_dockwidget_normal.png</file>
+        <file>pin_dockwidget_pressed.png</file>
+        <file>unpin_dockwidget_hover.png</file>
+        <file>unpin_dockwidget_normal.png</file>
+        <file>unpin_dockwidget_pressed.png</file>
+        <file>View_File.png</file>
+    </qresource>
+</RCC>

@@ -17,11 +17,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     src/main.cpp \
+    src/utils/3rdParty/NXDockWidget.cpp \
+    src/utils/3rdParty/NXDockWidgetTabBar.cpp \
+    src/utils/3rdParty/NXDockWidgetTabButton.cpp \
+    src/utils/3rdParty/NXDockWidgetTitle.cpp \
+    src/utils/3rdParty/NXMainWindow.cpp \
     src/utils/frameless_helper.cpp \
     src/views/mainwindow.cpp \
     src/views/titlebar.cpp
 
 HEADERS += \
+    src/utils/3rdParty/NXDockWidget.h \
+    src/utils/3rdParty/NXDockWidgetTabBar.h \
+    src/utils/3rdParty/NXDockWidgetTabButton.h \
+    src/utils/3rdParty/NXDockWidgetTitle.h \
+    src/utils/3rdParty/NXMainWindow.h \
     src/utils/frameless_helper.h \
     src/views/mainwindow.h \
     src/views/titlebar.h
@@ -30,3 +40,9 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources/nxmainwindow.qrc
+
+FORMS += \
+    src/utils/3rdParty/NXMainWindow.ui
