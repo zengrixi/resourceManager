@@ -217,7 +217,7 @@ void NXMainWindow::addDockWidget(Qt::DockWidgetArea area, NXDockWidget* dockWidg
     QMainWindow::addDockWidget(area, dockWidget, orientation);
 
     if (m_menuWindows == nullptr) {
-        m_menuWindows = menuBar()->addMenu("Windows");
+        m_menuWindows = menuBar()->addMenu(tr("Windows"));
         connect(m_menuWindows, &QMenu::triggered, this, &NXMainWindow::menuWindows_triggered);
     }
 

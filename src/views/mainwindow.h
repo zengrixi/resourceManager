@@ -9,6 +9,7 @@
 #include "src/utils/3rdParty/NXDockWidget.h"
 #include "src/utils/3rdParty/NXMainWindow.h"
 #include "src/utils/frameless_helper.h"
+#include "src/views/loadsrcdialog.h"
 #include "src/views/tableview.h"
 #include "src/views/titlebar.h"
 #include "src/views/treewidget.h"

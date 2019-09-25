@@ -17,6 +17,9 @@ MainWindow::MainWindow() {
     //...
     playout_->addSpacing(0);
     pcentral_window_->setLayout(playout_);
+
+    LoadSrcDialog *dialog = new LoadSrcDialog(pcentral_window_);
+    dialog->show();
 }
 
 MainWindow::~MainWindow() {}
@@ -66,7 +69,7 @@ void MainWindow::create_source_list_info() {
     pcentral_window_->addDockWidget(Qt::LeftDockWidgetArea, tree_dock);
     TreeWidget *tree_wid = new TreeWidget(pcentral_window_);
     QTreeWidgetItem *tree_item = tree_wid->add_root_node(tr("预警卫星"));
-    tree_wid->add_child_node(tree_item, "预警卫星1");
+    tree_wid->add_child_node(tree_item, tr("预警卫星1"));
     tree_dock->setWidget(tree_wid);
 }
 
