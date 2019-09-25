@@ -11,7 +11,8 @@ MainWindow::MainWindow() {
     playout_->addWidget(pcentral_window_);
 
     //创建子窗体
-    create_source_info_window();
+    create_source_window_info();
+    create_source_list_info();
 
     //...
     playout_->addSpacing(0);
@@ -53,11 +54,20 @@ void MainWindow::create_titlebar() {
     playout_->addWidget(ptitlebar_);
 }
 
-void MainWindow::create_source_info_window() {
+void MainWindow::create_source_window_info() {
     NXDockWidget *tab_dock = new NXDockWidget(tr("资源信息显示窗口"));
     pcentral_window_->addDockWidget(Qt::BottomDockWidgetArea, tab_dock);
     TableView *tab_view = new TableView(this);
     tab_dock->setWidget(tab_view);
+}
+
+void MainWindow::create_source_list_info() {
+    NXDockWidget *tree_dock = new NXDockWidget(tr("资源列表显示窗体"));
+    pcentral_window_->addDockWidget(Qt::LeftDockWidgetArea, tree_dock);
+    TreeWidget *tree_wid = new TreeWidget(pcentral_window_);
+    QTreeWidgetItem *tree_item = tree_wid->add_root_node(tr("预警卫星"));
+    tree_wid->add_child_node(tree_item, "预警卫星1");
+    tree_dock->setWidget(tree_wid);
 }
 
 void MainWindow::init_title_move() {

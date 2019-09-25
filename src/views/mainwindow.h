@@ -11,6 +11,7 @@
 #include "src/utils/frameless_helper.h"
 #include "src/views/tableview.h"
 #include "src/views/titlebar.h"
+#include "src/views/treewidget.h"
 
 class MainWindow : public QWidget {
     Q_OBJECT
@@ -24,7 +25,8 @@ protected:
 
 private:
     void create_titlebar();
-    void create_source_info_window();
+    void create_source_window_info();
+    void create_source_list_info();
 
     // 标题栏移动操作
     void init_title_move();
