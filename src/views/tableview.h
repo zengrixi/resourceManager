@@ -14,10 +14,6 @@ class TableView : public QTableView {
     Q_OBJECT
 
 public:
-    static TableView *get_instance();
-
-private:
-    static TableView *ptable_view;
     TableView(QWidget *parent = nullptr);
     ~TableView();
 

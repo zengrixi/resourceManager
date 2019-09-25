@@ -27,7 +27,8 @@ SOURCES += \
     src/utils/frameless_helper.cpp \
     src/views/mainwindow.cpp \
     src/views/tableview.cpp \
-    src/views/titlebar.cpp
+    src/views/titlebar.cpp \
+    src/views/treewidget.cpp
 
 HEADERS += \
     src/controllers/textdelegate.h \
@@ -40,7 +41,8 @@ HEADERS += \
     src/utils/frameless_helper.h \
     src/views/mainwindow.h \
     src/views/tableview.h \
-    src/views/titlebar.h
+    src/views/titlebar.h \
+    src/views/treewidget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

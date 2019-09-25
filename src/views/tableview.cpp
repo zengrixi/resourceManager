@@ -4,6 +4,7 @@
 #include <math.h>
 #include <time.h>
 
+#include <QDebug>
 #include <QFile>
 #include <QHeaderView>
 #include <QList>
@@ -45,7 +46,9 @@ void TableView::set_sty_sheet() {
 void TableView::load_style_sheet(const QString &styleSheetFile) {
     QFile file(styleSheetFile);
     file.open(QFile::ReadOnly);
-    assert(file.isOpen());
+    if (!file.isOpen()) {
+        qDebug() << "open file is faild!";
+    }
 
     QString style_sheet = this->styleSheet();
     style_sheet += QLatin1String(file.readAll()); // 读取样式文件
@@ -105,11 +108,4 @@ void TableView::add_data() {
 void TableView::clean_data() {
     pmsg_list_.clear();
     ptabmodel_->update_data();
-}
-
-TableView *TableView::ptable_view = nullptr;
-TableView *TableView::get_instance() {
-    if (!ptable_view) ptable_view = new TableView();
-    assert(ptable_view);
-    return ptable_view;
 }

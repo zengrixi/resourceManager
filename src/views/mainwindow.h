@@ -6,11 +6,13 @@
 #include <QPropertyAnimation>
 #include <QVBoxLayout>
 
+#include "src/utils/3rdParty/NXDockWidget.h"
 #include "src/utils/3rdParty/NXMainWindow.h"
 #include "src/utils/frameless_helper.h"
+#include "src/views/tableview.h"
 #include "src/views/titlebar.h"
 
-class MainWindow : public NXMainWindow {
+class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
@@ -22,8 +24,7 @@ protected:
 
 private:
     void create_titlebar();
-    void create_menubar();
-    void create_toolbar();
+    void create_source_info_window();
 
     // 标题栏移动操作
     void init_title_move();
@@ -31,7 +32,7 @@ private:
 private:
     TitleBar *ptitlebar_;
     QVBoxLayout *playout_;
-    QWidget *pcentral_window_;
+    NXMainWindow *pcentral_window_;
     FramelessHelper *phelper_;
 };
 #endif // MAINWINDOW_H

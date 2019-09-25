@@ -1,21 +1,20 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow() {
-    pcentral_window_ = new QWidget(this);
-    this->setCentralWidget(pcentral_window_);
-    playout_ = new QVBoxLayout(pcentral_window_);
+    pcentral_window_ = new NXMainWindow();
+    playout_ = new QVBoxLayout(this);
 
     // 创建自定义窗体
     create_titlebar();
-    create_menubar();
-    create_toolbar();
-
     // 标题栏可拖动操作
     init_title_move();
+    playout_->addWidget(pcentral_window_);
+
+    //创建子窗体
+    create_source_info_window();
 
     //...
     playout_->addSpacing(0);
-    playout_->addStretch(0);
     pcentral_window_->setLayout(playout_);
 }
 
@@ -50,18 +49,16 @@ void MainWindow::create_titlebar() {
     ptitlebar_ = new TitleBar(this);
     installEventFilter(ptitlebar_);
     this->setWindowIcon(QIcon(":qss_icons/rc/LOGO.png"));
-    this->setWindowTitle(tr("装备显控软件"));
+    this->setWindowTitle(tr("资源调度管理软件"));
     playout_->addWidget(ptitlebar_);
 }
 
-void MainWindow::create_menubar() {
-    QMenuBar *menubar = this->menuBar();
-    playout_->addWidget(reinterpret_cast<QWidget *>(menubar));
-
-    //...
+void MainWindow::create_source_info_window() {
+    NXDockWidget *tab_dock = new NXDockWidget(tr("资源信息显示窗口"));
+    pcentral_window_->addDockWidget(Qt::BottomDockWidgetArea, tab_dock);
+    TableView *tab_view = new TableView(this);
+    tab_dock->setWidget(tab_view);
 }
-
-void MainWindow::create_toolbar() { playout_->addWidget(reinterpret_cast<QWidget *>(ui.mainToolBar)); }
 
 void MainWindow::init_title_move() {
     phelper_ = new FramelessHelper(this);

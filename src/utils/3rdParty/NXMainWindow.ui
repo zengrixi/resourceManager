@@ -47,6 +47,7 @@
    <addaction name="actionImage_File"/>
    <addaction name="actionView_File"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionFile">
    <property name="icon">
     <iconset resource="../../../resources/nxmainwindow.qrc">
