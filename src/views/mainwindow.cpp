@@ -1,6 +1,13 @@
 #include "mainwindow.h"
 
+#include <QTimer>
+
 MainWindow::MainWindow() {
+    setWindowFlags(Qt::FramelessWindowHint | windowFlags());
+    setAttribute(Qt::WA_TranslucentBackground);
+    // 添加背景图
+    nine_patch_painter_ = new NinePatchPainter(QPixmap(":/Dock/resources/background.png"), 25, 25, 25, 25);
+
     pcentral_window_ = new NXMainWindow();
     playout_ = new QVBoxLayout(this);
 
@@ -17,9 +24,6 @@ MainWindow::MainWindow() {
     //...
     playout_->addSpacing(0);
     pcentral_window_->setLayout(playout_);
-
-    LoadSrcDialog *dialog = new LoadSrcDialog(pcentral_window_);
-    dialog->show();
 }
 
 MainWindow::~MainWindow() {}
@@ -48,8 +52,14 @@ void MainWindow::closeEvent(QCloseEvent *e) {
     }
 }
 
+void MainWindow::paintEvent(QPaintEvent *) {
+    QPainter painter(this);
+
+    this->resize(800, 600);
+    nine_patch_painter_->paint(&painter, QRect(0, 0, 400, 300)); // 九宫格绘制
+}
+
 void MainWindow::create_titlebar() {
-    setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     ptitlebar_ = new TitleBar(this);
     installEventFilter(ptitlebar_);
     this->setWindowIcon(QIcon(":qss_icons/rc/LOGO.png"));

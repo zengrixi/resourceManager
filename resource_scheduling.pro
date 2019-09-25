@@ -25,6 +25,7 @@ SOURCES += \
     src/utils/3rdParty/NXDockWidgetTitle.cpp \
     src/utils/3rdParty/NXMainWindow.cpp \
     src/utils/frameless_helper.cpp \
+    src/utils/ninepatchpainter.cpp \
     src/views/loadsrcdialog.cpp \
     src/views/mainwindow.cpp \
     src/views/tableview.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     src/utils/3rdParty/NXDockWidgetTitle.h \
     src/utils/3rdParty/NXMainWindow.h \
     src/utils/frameless_helper.h \
+    src/utils/ninepatchpainter.h \
     src/views/loadsrcdialog.h \
     src/views/mainwindow.h \
     src/views/tableview.h \

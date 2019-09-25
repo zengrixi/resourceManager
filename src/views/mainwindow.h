@@ -9,6 +9,7 @@
 #include "src/utils/3rdParty/NXDockWidget.h"
 #include "src/utils/3rdParty/NXMainWindow.h"
 #include "src/utils/frameless_helper.h"
+#include "src/utils/ninepatchpainter.h"
 #include "src/views/loadsrcdialog.h"
 #include "src/views/tableview.h"
 #include "src/views/titlebar.h"
@@ -23,6 +24,7 @@ public:
 
 protected:
     virtual void closeEvent(QCloseEvent *e) override;
+    virtual void paintEvent(QPaintEvent *);
 
 private:
     void create_titlebar();
@@ -37,5 +39,7 @@ private:
     QVBoxLayout *playout_;
     NXMainWindow *pcentral_window_;
     FramelessHelper *phelper_;
+
+    NinePatchPainter *nine_patch_painter_;
 };
 #endif // MAINWINDOW_H

@@ -18,5 +18,6 @@
         <file>unpin_dockwidget_normal.png</file>
         <file>unpin_dockwidget_pressed.png</file>
         <file>View_File.png</file>
+        <file>background.png</file>
     </qresource>
 </RCC>
