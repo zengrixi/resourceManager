@@ -11,19 +11,26 @@
 #include <QPushButton>
 #include <QScrollBar>
 #include <QSortFilterProxyModel>
+#include <QTimer>
 #include <QWheelEvent>
 
 int xx = 0;
 
-TableView::TableView(QWidget *parent) : QTableView(parent), phor_scrollbar_(this->horizontalScrollBar()) {
-    ptabmodel_ = TableModel::get_instance(); // 创建模型
-    QSortFilterProxyModel *proxy_model = new QSortFilterProxyModel(this);
-    proxy_model->setSourceModel(ptabmodel_);
-    setModel(proxy_model);
-    TextDelegate *pdelegate = new TextDelegate(this);
-    setItemDelegate(pdelegate);
+TableView::TableView(QWidget *parent) : QTableView(parent), hor_scrollbar_(this->horizontalScrollBar()) {
+    tabmodel_ = new TableModel(this);     // 创建模型
+    tabmodel_->set_msg_list(&data_list_); // 设置数据容器
+    QSortFilterProxyModel *roxy_model = new QSortFilterProxyModel(this);
+    roxy_model->setSourceModel(tabmodel_);
+    setModel(roxy_model);
+    TextDelegate *delegate = new TextDelegate(this);
+    setItemDelegate(delegate);
 
     set_sty_sheet();
+
+    //开启测试
+    QTimer *test_add_data = new QTimer();
+    connect(test_add_data, SIGNAL(timeout()), this, SLOT(add_data()));
+    test_add_data->start(2000);
 }
 
 TableView::~TableView() {}
@@ -57,31 +64,33 @@ void TableView::load_style_sheet(const QString &styleSheetFile) {
 }
 
 void TableView::wheelEvent(QWheelEvent *e) {
-    if (ptabmodel_->get_msg_list()->isEmpty()) {
+    QVector<TargetData *> *list = tabmodel_->get_msg_list();
+
+    if (list->isEmpty()) {
         return QTableView::wheelEvent(e);
     }
-    int para = e->angleDelta().y(); // 获得鼠标滚轮的滚动距离para, para<0向下滚动，>0向上滚动
-    QList<MsgData> *plist = ptabmodel_->get_msg_list();
-    int view_size = plist->size();
-    int data_size = pmsg_list_.size();
-    int *pindex = ptabmodel_->get_index();
-    MsgData *pmsg = nullptr;
 
-    if (para > 0 && phor_scrollbar_->value() == phor_scrollbar_->maximum()) {
-        if (view_size - 1 != *pindex) {
-            pmsg = &pmsg_list_[(*pindex)-- - view_size];
-            plist->pop_back();
-            plist->push_front(*pmsg);
+    int para = e->angleDelta().y(); // 获得鼠标滚轮的滚动距离para, para<0向下滚动，>0向上滚动
+    int view_size = list->size();
+    int data_size = data_list_.target_list.size();
+    int *index = tabmodel_->get_index();
+    TargetData *data = nullptr;
+
+    if (para > 0 && hor_scrollbar_->value() == hor_scrollbar_->maximum()) {
+        if (view_size - 1 != *index) {
+            data = data_list_.target_list[(*index)-- - view_size];
+            list->pop_back();
+            list->push_front(data);
         }
-    } else if (para < 0 && phor_scrollbar_->value() == phor_scrollbar_->minimum()) {
-        if (data_size - 1 != *pindex) {
-            pmsg = &pmsg_list_[++(*pindex)];
-            plist->pop_front();
-            plist->push_back(*pmsg);
+    } else if (para < 0 && hor_scrollbar_->value() == hor_scrollbar_->minimum()) {
+        if (data_size - 1 != *index) {
+            data = data_list_.target_list[++(*index)];
+            list->pop_front();
+            list->push_back(data);
         }
     }
 
-    ptabmodel_->update_data();
+    tabmodel_->update_data();
 
     QTableView::wheelEvent(e);
 }
@@ -89,23 +98,28 @@ void TableView::wheelEvent(QWheelEvent *e) {
 void TableView::add_data() {
     srand((unsigned)time(NULL));
 
-    MsgData data;
-    data.sResourcesName = QString::fromLocal8Bit("预警卫星%1").arg(xx++);
-    data.nResourcesId = xx;
-    data.bAuthStatus = (bool)(rand() % 2);
-    data.sEquipStatus = rand() % 4;
-    data.bComunStatus = (bool)(rand() % 2);
-    data.nLongitude = (double)(rand() % 9999);
-    data.nLatitude = (double)(rand() % 9999);
-    data.nHeight = (double)(rand() % 9999);
-    pmsg_list_.append(data);
+    TargetData data;
+    data.title = new char[10];
+    strcpy(data.title, "预警雷达");
+    data.id = new char[5];
+    strcpy(data.id, "1");
+    data.type = rand() % 6;
+    data.auth_status = rand() % 2;
+    data.equi_status = rand() % 4;
+    data.commun_status = rand() % 2;
+    data.pos_x = rand() % 100;
+    data.pos_y = rand() % 100;
+    data.pos_z = rand() % 100;
+    data.count = rand() % 1000;
 
-    ptabmodel_->set_data_model(&pmsg_list_); // 设置数据
-    ptabmodel_->update_data();
+    data_list_.target_list.append(&data);
+
+    tabmodel_->set_data_model(&data_list_); // 设置数据
+    tabmodel_->update_data();
     scrollToBottom();
 }
 
 void TableView::clean_data() {
-    pmsg_list_.clear();
-    ptabmodel_->update_data();
+    data_list_.target_list.clear();
+    tabmodel_->update_data();
 }

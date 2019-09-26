@@ -1,29 +1,36 @@
 #include "mainwindow.h"
 
+#include <QPainter>
 #include <QTimer>
 
 MainWindow::MainWindow() {
-    setWindowFlags(Qt::FramelessWindowHint | windowFlags());
-    setAttribute(Qt::WA_TranslucentBackground);
-    // 添加背景图
-    nine_patch_painter_ = new NinePatchPainter(QPixmap(":/Dock/resources/background.png"), 25, 25, 25, 25);
+    setWindowFlags(Qt::FramelessWindowHint);
+    //    setAttribute(Qt::WA_TranslucentBackground);
+    this->setMinimumSize(1024, 768);
 
-    pcentral_window_ = new NXMainWindow();
-    playout_ = new QVBoxLayout(this);
+    // 添加背景图
+    nine_patch_painter_ = new NinePatchPainter(QPixmap(":/Dock/resources/background.png"), 23, 12, 23, 33);
+
+    // 添加样式
+    this->setObjectName("mainwindow");
+
+    central_window_ = new NXMainWindow();
+    layout_ = new QVBoxLayout(this);
 
     // 创建自定义窗体
     create_titlebar();
     // 标题栏可拖动操作
     init_title_move();
-    playout_->addWidget(pcentral_window_);
+    layout_->addWidget(central_window_);
 
     //创建子窗体
     create_source_window_info();
     create_source_list_info();
 
     //...
-    playout_->addSpacing(0);
-    pcentral_window_->setLayout(playout_);
+    layout_->setSpacing(0);
+    layout_->setContentsMargins(0, 0, 0, 0);
+    central_window_->setLayout(layout_);
 }
 
 MainWindow::~MainWindow() {}
@@ -55,40 +62,39 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 void MainWindow::paintEvent(QPaintEvent *) {
     QPainter painter(this);
 
-    this->resize(800, 600);
-    nine_patch_painter_->paint(&painter, QRect(0, 0, 400, 300)); // 九宫格绘制
+    nine_patch_painter_->paint(&painter, rect()); // 九宫格绘制
 }
 
 void MainWindow::create_titlebar() {
-    ptitlebar_ = new TitleBar(this);
-    installEventFilter(ptitlebar_);
+    titlebar_ = new TitleBar(this);
+    installEventFilter(titlebar_);
     this->setWindowIcon(QIcon(":qss_icons/rc/LOGO.png"));
     this->setWindowTitle(tr("资源调度管理软件"));
-    playout_->addWidget(ptitlebar_);
+    layout_->addWidget(titlebar_);
 }
 
 void MainWindow::create_source_window_info() {
     NXDockWidget *tab_dock = new NXDockWidget(tr("资源信息显示窗口"));
-    pcentral_window_->addDockWidget(Qt::BottomDockWidgetArea, tab_dock);
+    central_window_->addDockWidget(Qt::BottomDockWidgetArea, tab_dock);
     TableView *tab_view = new TableView(this);
     tab_dock->setWidget(tab_view);
 }
 
 void MainWindow::create_source_list_info() {
     NXDockWidget *tree_dock = new NXDockWidget(tr("资源列表显示窗体"));
-    pcentral_window_->addDockWidget(Qt::LeftDockWidgetArea, tree_dock);
-    TreeWidget *tree_wid = new TreeWidget(pcentral_window_);
+    central_window_->addDockWidget(Qt::LeftDockWidgetArea, tree_dock);
+    TreeWidget *tree_wid = new TreeWidget(central_window_);
     QTreeWidgetItem *tree_item = tree_wid->add_root_node(tr("预警卫星"));
     tree_wid->add_child_node(tree_item, tr("预警卫星1"));
     tree_dock->setWidget(tree_wid);
 }
 
 void MainWindow::init_title_move() {
-    phelper_ = new FramelessHelper(this);
-    phelper_->activate_on(this);
-    phelper_->set_title_height(35);
-    phelper_->set_widget_movable(true);
-    phelper_->set_widget_esizable(true);
-    phelper_->set_ubber_band_on_move(true);
-    phelper_->set_rubber_band_on_resize(true);
+    helper_ = new FramelessHelper(this);
+    helper_->activate_on(this);
+    helper_->set_title_height(35);
+    helper_->set_widget_movable(true);
+    helper_->set_widget_esizable(true);
+    helper_->set_ubber_band_on_move(true);
+    helper_->set_rubber_band_on_resize(true);
 }

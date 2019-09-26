@@ -21,73 +21,73 @@ TitleBar::~TitleBar() {}
 
 void TitleBar::init_control() {
     /* 初始化控件 */
-    picon_label_ = new QLabel(this);
-    ptitle_label_ = new QLabel(this);
-    pminimize_btn_ = new QPushButton(this);
-    pmaximize_btn_ = new QPushButton(this);
-    pclose_button_ = new QPushButton(this);
+    icon_label_ = new QLabel(this);
+    title_label_ = new QLabel(this);
+    minimize_btn_ = new QPushButton(this);
+    maximize_btn_ = new QPushButton(this);
+    close_button_ = new QPushButton(this);
 
     /* 设置标题栏图标控件 */
-    picon_label_->setFixedSize(ICON_W, ICON_H);
-    picon_label_->setScaledContents(true);
+    icon_label_->setFixedSize(ICON_W, ICON_H);
+    icon_label_->setScaledContents(true);
 
     /* 设置标题栏文本控件 */
-    ptitle_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    ptitle_label_->setAlignment(Qt::AlignCenter);
+    title_label_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    title_label_->setAlignment(Qt::AlignCenter);
 
     /* 设置标题栏按钮控件 */
-    pminimize_btn_->setFixedSize(BTN_W, BTN_H);
-    pmaximize_btn_->setFixedSize(BTN_W, BTN_H);
-    pclose_button_->setFixedSize(BTN_W, BTN_H);
+    minimize_btn_->setFixedSize(BTN_W, BTN_H);
+    maximize_btn_->setFixedSize(BTN_W, BTN_H);
+    close_button_->setFixedSize(BTN_W, BTN_H);
 
     /* 设置各种对象名称 */
-    ptitle_label_->setObjectName("whiteLabel");
-    pminimize_btn_->setObjectName("minimizeButton");
-    pmaximize_btn_->setObjectName("maximizeButton");
-    pclose_button_->setObjectName("closeButton");
+    title_label_->setObjectName("whiteLabel");
+    minimize_btn_->setObjectName("minimizeButton");
+    maximize_btn_->setObjectName("maximizeButton");
+    close_button_->setObjectName("closeButton");
 
     /* 设置标题栏按钮的提示文本 */
-    pminimize_btn_->setToolTip(tr("最小化"));
-    pmaximize_btn_->setToolTip(tr("最大化"));
-    pclose_button_->setToolTip(tr("关闭"));
+    minimize_btn_->setToolTip(tr("最小化"));
+    maximize_btn_->setToolTip(tr("最大化"));
+    close_button_->setToolTip(tr("关闭"));
 
     /* 设置控件布局 */
-    playout_ = new QHBoxLayout(this);
-    playout_->addWidget(picon_label_);
-    playout_->addSpacing(5);
-    playout_->addWidget(ptitle_label_);
-    playout_->addWidget(pminimize_btn_);
-    playout_->addWidget(pmaximize_btn_);
-    playout_->addWidget(pclose_button_);
-    playout_->setSpacing(0);
-    playout_->setContentsMargins(5, 0, 5, 0);
-    setLayout(playout_);
+    layout_ = new QHBoxLayout(this);
+    layout_->addWidget(icon_label_);
+    layout_->addSpacing(5);
+    layout_->addWidget(title_label_);
+    layout_->addWidget(minimize_btn_);
+    layout_->addWidget(maximize_btn_);
+    layout_->addWidget(close_button_);
+    layout_->setSpacing(0);
+    layout_->setContentsMargins(0, 0, 0, 0);
+    setLayout(layout_);
 
-    connect(pminimize_btn_, SIGNAL(clicked()), this, SLOT(on_clicked()));
-    connect(pmaximize_btn_, SIGNAL(clicked()), this, SLOT(on_clicked()));
-    connect(pclose_button_, SIGNAL(clicked()), this, SLOT(on_clicked()));
+    connect(minimize_btn_, SIGNAL(clicked()), this, SLOT(on_clicked()));
+    connect(maximize_btn_, SIGNAL(clicked()), this, SLOT(on_clicked()));
+    connect(close_button_, SIGNAL(clicked()), this, SLOT(on_clicked()));
 }
 
 void TitleBar::mouseDoubleClickEvent(QMouseEvent *event) {
     Q_UNUSED(event);
 
-    emit pmaximize_btn_->clicked();
+    emit maximize_btn_->clicked();
 }
 
 bool TitleBar::eventFilter(QObject *obj, QEvent *event) {
     switch (event->type()) {
         case QEvent::WindowTitleChange: {
-            QWidget *pwidget = qobject_cast<QWidget *>(obj);
-            if (pwidget) {
-                ptitle_label_->setText(pwidget->windowTitle());
+            QWidget *widget = qobject_cast<QWidget *>(obj);
+            if (widget) {
+                title_label_->setText(widget->windowTitle());
                 return true;
             }
         }
         case QEvent::WindowIconChange: {
-            QWidget *pwidget = qobject_cast<QWidget *>(obj);
-            if (pwidget) {
-                QIcon icon = pwidget->windowIcon();
-                picon_label_->setPixmap(icon.pixmap(picon_label_->size()));
+            QWidget *widget = qobject_cast<QWidget *>(obj);
+            if (widget) {
+                QIcon icon = widget->windowIcon();
+                icon_label_->setPixmap(icon.pixmap(icon_label_->size()));
                 return true;
             }
         }
@@ -100,30 +100,30 @@ bool TitleBar::eventFilter(QObject *obj, QEvent *event) {
 }
 
 void TitleBar::on_clicked() {
-    QPushButton *pbutton = qobject_cast<QPushButton *>(sender());
-    QWidget *pwindow = this->window();
-    if (pwindow->isWindow()) {
-        if (pbutton == pminimize_btn_)
-            pwindow->showMinimized();
-        else if (pbutton == pmaximize_btn_)
-            pwindow->isMaximized() ? pwindow->showNormal() : pwindow->showMaximized();
-        else if (pbutton == pclose_button_)
-            pwindow->close();
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    QWidget *window = this->window();
+    if (window->isWindow()) {
+        if (button == minimize_btn_)
+            window->showMinimized();
+        else if (button == maximize_btn_)
+            window->isMaximized() ? window->showNormal() : window->showMaximized();
+        else if (button == close_button_)
+            window->close();
     }
 }
 
 void TitleBar::update_maximize() {
-    QWidget *pwindow = this->window();
-    if (pwindow->isWindow()) {
-        bool bmaximize = pwindow->isMaximized();
+    QWidget *window = this->window();
+    if (window->isWindow()) {
+        bool bmaximize = window->isMaximized();
         if (bmaximize) {
-            pmaximize_btn_->setToolTip("还原");
-            pmaximize_btn_->setProperty("maximizeProperty", "restore");
+            maximize_btn_->setToolTip("还原");
+            maximize_btn_->setProperty("maximizeProperty", "restore");
         } else {
-            pmaximize_btn_->setProperty("maximizeProperty", "maximize");
-            pmaximize_btn_->setToolTip("最大化");
+            maximize_btn_->setProperty("maximizeProperty", "maximize");
+            maximize_btn_->setToolTip("最大化");
         }
 
-        pmaximize_btn_->setStyle(QApplication::style());
+        maximize_btn_->setStyle(QApplication::style());
     }
 }

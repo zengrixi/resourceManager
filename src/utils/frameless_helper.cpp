@@ -47,9 +47,9 @@ void CursorPosCalculator::recalculate(const QPoint &mouse_pos, const QRect &fram
 }
 
 /***** WidgetData *****/
-WidgetData::WidgetData(FramelessHelperPrivate *d, QWidget *ptop_level_widget) {
+WidgetData::WidgetData(FramelessHelperPrivate *d, QWidget *top_level_widget) {
     d_ = d;
-    pwidget_ = ptop_level_widget;
+    pwidget_ = top_level_widget;
     left_button_pressed_ = false;
     cursor_shape_changed_ = false;
     left_button_title_pressed_ = false;

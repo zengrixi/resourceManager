@@ -15,7 +15,7 @@ public:
     bool add_child_node(QTreeWidgetItem *root, QString title = "");
 
 private:
-    QMap<QString, QTreeWidgetItem *> map_root_items_;
+    QMap<QString, QTreeWidgetItem *> root_items_;
 };
 
 #endif // THREEWIDGET_H

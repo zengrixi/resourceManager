@@ -35,10 +35,10 @@ private:
     void init_title_move();
 
 private:
-    TitleBar *ptitlebar_;
-    QVBoxLayout *playout_;
-    NXMainWindow *pcentral_window_;
-    FramelessHelper *phelper_;
+    TitleBar *titlebar_;
+    QVBoxLayout *layout_;
+    NXMainWindow *central_window_;
+    FramelessHelper *helper_;
 
     NinePatchPainter *nine_patch_painter_;
 };

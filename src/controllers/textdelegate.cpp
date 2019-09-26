@@ -14,9 +14,9 @@ void TextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     if (option.state.testFlag(QStyle::State_HasFocus)) view_option.state = view_option.state ^ QStyle::State_HasFocus;
 
     // 设置显示文本为空，使用默认样式
-    QStyle *pstyle = view_option.widget ? view_option.widget->style() : QApplication::style();
+    QStyle *style = view_option.widget ? view_option.widget->style() : QApplication::style();
     view_option.text = "";
-    pstyle->drawControl(QStyle::CE_ItemViewItem, &view_option, painter, view_option.widget);
+    style->drawControl(QStyle::CE_ItemViewItem, &view_option, painter, view_option.widget);
 
     QString text;
     QRect text_rect;
@@ -30,7 +30,7 @@ void TextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(Qt::yellow);
         }
 
-        text_rect = pstyle->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
+        text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
     } else if (index.column() == 3) {
         if (index.data().toInt() == 0) {
             text = tr("待机");
@@ -48,7 +48,7 @@ void TextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             text = tr("");
         }
 
-        text_rect = pstyle->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
+        text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
     } else if (index.column() == 4) {
         if (index.data().toBool()) {
             text = tr("正在通信");
@@ -58,7 +58,7 @@ void TextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
             painter->setPen(Qt::red);
         }
 
-        text_rect = pstyle->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
+        text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
     } else {
         QStyledItemDelegate::paint(painter, view_option, index);
         return;

@@ -50,10 +50,10 @@ protected:
     virtual void wheelEvent(QWheelEvent *e) override;
 
 private:
-    TableModel *ptabmodel_;
-    QList<MsgData> pmsg_list_;
+    TableModel *tabmodel_;
+    TargetDataModel data_list_;
 
-    QScrollBar *phor_scrollbar_;
+    QScrollBar *hor_scrollbar_;
 
     int index_;
 };

@@ -7,7 +7,7 @@ TreeWidget::~TreeWidget() {}
 QTreeWidgetItem *TreeWidget::add_root_node(QString title) {
     QTreeWidgetItem *item = new QTreeWidgetItem(this);
     item->setText(0, title);
-    map_root_items_.insert(title, item);
+    root_items_.insert(title, item);
 
     return item;
 }

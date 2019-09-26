@@ -28,12 +28,14 @@ SOURCES += \
     src/utils/ninepatchpainter.cpp \
     src/views/loadsrcdialog.cpp \
     src/views/mainwindow.cpp \
+    src/views/resourcesetting.cpp \
     src/views/tableview.cpp \
     src/views/titlebar.cpp \
     src/views/treewidget.cpp
 
 HEADERS += \
     src/controllers/textdelegate.h \
+    src/models/datamodel.h \
     src/models/tablemodel.h \
     src/utils/3rdParty/NXDockWidget.h \
     src/utils/3rdParty/NXDockWidgetTabBar.h \
@@ -44,6 +46,7 @@ HEADERS += \
     src/utils/ninepatchpainter.h \
     src/views/loadsrcdialog.h \
     src/views/mainwindow.h \
+    src/views/resourcesetting.h \
     src/views/tableview.h \
     src/views/titlebar.h \
     src/views/treewidget.h

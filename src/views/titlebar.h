@@ -27,12 +27,12 @@ private:
 
 private:
     int title_height_;
-    QLabel *picon_label_;
-    QLabel *ptitle_label_;
-    QHBoxLayout *playout_;
-    QPushButton *pminimize_btn_;
-    QPushButton *pmaximize_btn_;
-    QPushButton *pclose_button_;
+    QLabel *icon_label_;
+    QLabel *title_label_;
+    QHBoxLayout *layout_;
+    QPushButton *minimize_btn_;
+    QPushButton *maximize_btn_;
+    QPushButton *close_button_;
 };
 
 #endif // TITLEBAR_H

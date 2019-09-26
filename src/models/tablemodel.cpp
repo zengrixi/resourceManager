@@ -5,17 +5,17 @@
 
 #define VIEW_MAX 100 // 显示数据的最大值
 
-class TableModel *TableModel::pModeViewTabel = nullptr;
-
-TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent) { pmsg_list_ = new QList<MsgData>(); }
+TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent), cow_max_(head_title.size()) {
+    data_list_ = new TargetDataModel();
+}
 
 TableModel::~TableModel() {}
 
 int *TableModel::get_index() { return &index_; }
 
-QList<MsgData> *TableModel::get_msg_list() const { return pmsg_list_; }
+QVector<TargetData *> *TableModel::get_msg_list() const { return &data_list_->target_list; }
 
-void TableModel::set_msg_list(QList<MsgData> *pmsg_list) { pmsg_list_ = pmsg_list; }
+void TableModel::set_msg_list(TargetDataModel *msg_list) { data_list_ = msg_list; }
 
 void TableModel::update_data() {
     beginResetModel(); // 开始模型重置操作
@@ -25,13 +25,13 @@ void TableModel::update_data() {
 int TableModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
 
-    return pmsg_list_->count();
+    return data_list_->target_list.count();
 }
 
 int TableModel::columnCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
 
-    return COL_MAX;
+    return cow_max_;
 }
 
 QVariant TableModel::data(const QModelIndex &index, int role) const {
@@ -39,7 +39,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
 
     int row = index.row();
     int column = index.column();
-    const MsgData *data = &pmsg_list_->at(row);
+    const TargetData *data = data_list_->target_list[row];
 
     switch (role) {
         case Qt::TextColorRole:
@@ -47,22 +47,31 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
         case Qt::TextAlignmentRole:
             return QVariant(Qt::AlignHCenter | Qt::AlignVCenter);
         case Qt::DisplayRole:
-            if (column == Enum_ResourcesName)
-                return data->sResourcesName;
-            else if (column == Enum_ResourcesId) {
-                return data->nResourcesId;
-            } else if (column == Enum_AuthorizationStatus) {
-                return data->bAuthStatus;
-            } else if (column == Enum_EquipmentStatus) {
-                return data->sEquipStatus;
-            } else if (column == Enum_ComunicationStatus)
-                return data->bComunStatus;
-            else if (column == Enum_Longitude)
-                return data->nLongitude;
-            else if (column == Enum_Latitude) {
-                return data->nLatitude;
-            } else if (column == Enum_Height) {
-                return QString::number(data->nHeight) + tr(" 米");
+            if (column == ResourcesName)
+                return data->id;
+            else if (column == ResourcesId) {
+                if (data->title == nullptr) {
+                    return "";
+                } else {
+                    QString title(data->title);
+                    return title;
+                }
+            } else if (column == ResourcesType) {
+                return resource_type[data->type];
+            } else if (column == AuthorizationStatus) {
+                return auth_status[data->auth_status];
+            } else if (column == EquipmentStatus) {
+                return equi_status[data->equi_status];
+            } else if (column == ComunicationStatus)
+                return commun_status[data->commun_status];
+            else if (column == Longitude)
+                return data->pos_x;
+            else if (column == Latitude) {
+                return data->pos_y;
+            } else if (column == Height) {
+                return QString::number(data->pos_z) + tr(" 米");
+            } else if (Count) {
+                return data->count;
             }
 
             return "";
@@ -80,7 +89,7 @@ QVariant TableModel::headerData(int section, Qt::Orientation orientation, int ro
             return QVariant(Qt::AlignHCenter | Qt::AlignVCenter);
         case Qt::DisplayRole:
             if (orientation == Qt::Horizontal) {
-                return tr(headerText[section]);
+                return head_title[section];
             }
         default:
             return QVariant();
@@ -95,10 +104,12 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const {
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
-void TableModel::set_data_model(QList<MsgData> *plist) {
-    if (pmsg_list_->size() > VIEW_MAX - 1) pmsg_list_->pop_front();
-    if (!plist->isEmpty()) {
-        pmsg_list_->push_back(plist->back());
-        index_ = plist->size() - 1;
+void TableModel::set_data_model(TargetDataModel *list) {
+    QVector<TargetData *> data = list->target_list;
+    int size = data.size();
+    if (size > VIEW_MAX - 1) data.pop_front();
+    if (!data.isEmpty()) {
+        data.push_back(data.back());
+        index_ = data.size() - 1;
     }
 }
