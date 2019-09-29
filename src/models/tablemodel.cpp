@@ -5,7 +5,34 @@
 
 #define VIEW_MAX 100 // 显示数据的最大值
 
-TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent), cow_max_(head_title.size()) {
+TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent) {
+    // 消息头文本
+    head_title << "资源名称"
+               << "资源编号"
+               << "资源类型"
+               << "授权状态"
+               << "装备状态"
+               << "通信状态"
+               << "位置-经度"
+               << "位置-纬度"
+               << "位置-高度"
+               << "目标数目";
+    resource_type << "预警卫星"
+                  << "预警雷达"
+                  << "识别雷达"
+                  << "空基探测"
+                  << "中段阵地"
+                  << "末高阵地";
+    auth_status << "未授权"
+                << "已授权";
+    equi_status << "待机"
+                << "准备"
+                << "正常运行"
+                << "故障";
+    commun_status << "未通信"
+                  << "正在通信";
+
+    cow_max_ = head_title.size();
     data_list_ = new TargetDataModel();
 }
 
@@ -53,17 +80,16 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
                 if (data->title == nullptr) {
                     return "";
                 } else {
-                    QString title(data->title);
-                    return title;
+                    return "";
                 }
             } else if (column == ResourcesType) {
-                return resource_type[data->type];
+                return resource_type.at(data->type);
             } else if (column == AuthorizationStatus) {
-                return auth_status[data->auth_status];
+                return auth_status.at(data->auth_status);
             } else if (column == EquipmentStatus) {
-                return equi_status[data->equi_status];
+                return equi_status.at(data->equi_status);
             } else if (column == ComunicationStatus)
-                return commun_status[data->commun_status];
+                return commun_status.at(data->commun_status);
             else if (column == Longitude)
                 return data->pos_x;
             else if (column == Latitude) {

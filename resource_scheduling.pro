@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +19,7 @@ SOURCES += \
     src/controllers/textdelegate.cpp \
     src/main.cpp \
     src/models/tablemodel.cpp \
+    src/net/udpsocket.cpp \
     src/utils/3rdParty/NXDockWidget.cpp \
     src/utils/3rdParty/NXDockWidgetTabBar.cpp \
     src/utils/3rdParty/NXDockWidgetTabButton.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     src/utils/3rdParty/NXMainWindow.cpp \
     src/utils/frameless_helper.cpp \
     src/utils/ninepatchpainter.cpp \
+    src/utils/xmlsetting.cpp \
     src/views/loadsrcdialog.cpp \
     src/views/mainwindow.cpp \
     src/views/resourcesetting.cpp \
@@ -37,6 +39,7 @@ HEADERS += \
     src/controllers/textdelegate.h \
     src/models/datamodel.h \
     src/models/tablemodel.h \
+    src/net/udpsocket.h \
     src/utils/3rdParty/NXDockWidget.h \
     src/utils/3rdParty/NXDockWidgetTabBar.h \
     src/utils/3rdParty/NXDockWidgetTabButton.h \
@@ -44,6 +47,7 @@ HEADERS += \
     src/utils/3rdParty/NXMainWindow.h \
     src/utils/frameless_helper.h \
     src/utils/ninepatchpainter.h \
+    src/utils/xmlsetting.h \
     src/views/loadsrcdialog.h \
     src/views/mainwindow.h \
     src/views/resourcesetting.h \

@@ -24,7 +24,7 @@ public:
 
 protected:
     virtual void closeEvent(QCloseEvent *e) override;
-    virtual void paintEvent(QPaintEvent *);
+    virtual void paintEvent(QPaintEvent *) override;
 
 private:
     void create_titlebar();

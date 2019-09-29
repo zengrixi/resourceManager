@@ -27,18 +27,6 @@ enum MsgType {
     Count
 };
 
-// 消息头文本
-static const QStringList head_title = {"资源名称", "资源编号",  "资源类型",  "授权状态",  "装备状态",
-                                       "通信状态", "位置-经度", "位置-纬度", "位置-高度", "目标数目"};
-
-static const QStringList resource_type = {"预警卫星", "预警雷达", "识别雷达", "空基探测", "中段阵地", "末高阵地"};
-
-static const QStringList auth_status = {"未授权", "已授权"};
-
-static const QStringList equi_status = {"待机", "准备", "正常运行", "故障"};
-
-static const QStringList commun_status = {"未通信", "正在通信"};
-
 class TableModel : public QAbstractTableModel {
     Q_OBJECT
 
@@ -62,6 +50,11 @@ protected:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
+    QStringList head_title;
+    QStringList resource_type;
+    QStringList auth_status;
+    QStringList equi_status;
+    QStringList commun_status;
     int cow_max_;
     int index_;
     TargetDataModel *data_list_;
