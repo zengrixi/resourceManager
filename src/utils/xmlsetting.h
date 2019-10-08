@@ -9,10 +9,12 @@
 
 class XmlSetting {
 public:
-    XmlSetting(const QString &file);
+    XmlSetting();
     ~XmlSetting();
 
-    void writeXml();
+    void write_xml(const QString &file);
+
+    void read_xml(const QString &file);
 
 private:
     QDomDocument *protocols_;

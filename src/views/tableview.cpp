@@ -14,11 +14,8 @@
 #include <QTimer>
 #include <QWheelEvent>
 
-int xx = 0;
-
 TableView::TableView(QWidget *parent) : QTableView(parent), hor_scrollbar_(this->horizontalScrollBar()) {
-    tabmodel_ = new TableModel(this);     // 创建模型
-    tabmodel_->set_msg_list(&data_list_); // 设置数据容器
+    tabmodel_ = new TableModel(this); // 创建模型
     QSortFilterProxyModel *roxy_model = new QSortFilterProxyModel(this);
     roxy_model->setSourceModel(tabmodel_);
     setModel(roxy_model);
@@ -64,7 +61,7 @@ void TableView::load_style_sheet(const QString &styleSheetFile) {
 }
 
 void TableView::wheelEvent(QWheelEvent *e) {
-    QVector<TargetData *> *list = tabmodel_->get_msg_list();
+    QList<TargetData> *list = tabmodel_->get_msg_list();
 
     if (list->isEmpty()) {
         return QTableView::wheelEvent(e);
@@ -72,21 +69,21 @@ void TableView::wheelEvent(QWheelEvent *e) {
 
     int para = e->angleDelta().y(); // 获得鼠标滚轮的滚动距离para, para<0向下滚动，>0向上滚动
     int view_size = list->size();
-    int data_size = data_list_.target_list.size();
+    int data_size = data_list_.size();
     int *index = tabmodel_->get_index();
     TargetData *data = nullptr;
 
     if (para > 0 && hor_scrollbar_->value() == hor_scrollbar_->maximum()) {
         if (view_size - 1 != *index) {
-            data = data_list_.target_list[(*index)-- - view_size];
+            data = &data_list_[(*index)-- - view_size];
             list->pop_back();
-            list->push_front(data);
+            list->push_front(*data);
         }
     } else if (para < 0 && hor_scrollbar_->value() == hor_scrollbar_->minimum()) {
         if (data_size - 1 != *index) {
-            data = data_list_.target_list[++(*index)];
+            data = &data_list_[++(*index)];
             list->pop_front();
-            list->push_back(data);
+            list->push_back(*data);
         }
     }
 
@@ -112,7 +109,7 @@ void TableView::add_data() {
     data.pos_z = rand() % 100;
     data.count = rand() % 1000;
 
-    data_list_.target_list.append(&data);
+    data_list_.append(data);
 
     tabmodel_->set_data_model(&data_list_); // 设置数据
     tabmodel_->update_data();
@@ -120,6 +117,6 @@ void TableView::add_data() {
 }
 
 void TableView::clean_data() {
-    data_list_.target_list.clear();
+    data_list_.clear();
     tabmodel_->update_data();
 }

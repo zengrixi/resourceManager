@@ -21,17 +21,17 @@ void TextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     QString text;
     QRect text_rect;
 
-    if (index.column() == 2) {
-        if (index.data().toBool()) {
-            text = tr("已授权");
-            painter->setPen(Qt::blue);
-        } else {
+    if (index.column() == 3) {
+        if (index.data().toInt() == 0) {
             text = tr("未授权");
+            painter->setPen(Qt::blue);
+        } else if (index.data().toInt() == 1) {
+            text = tr("已授权");
             painter->setPen(Qt::yellow);
         }
 
         text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
-    } else if (index.column() == 3) {
+    } else if (index.column() == 4) {
         if (index.data().toInt() == 0) {
             text = tr("待机");
             painter->setPen(Qt::blue);
@@ -49,19 +49,20 @@ void TextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         }
 
         text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
-    } else if (index.column() == 4) {
-        if (index.data().toBool()) {
-            text = tr("正在通信");
-            painter->setPen(Qt::green);
-        } else {
+    } else if (index.column() == 5) {
+        if (index.data().toInt() == 0) {
             text = tr("未通信");
+            painter->setPen(Qt::green);
+        } else if (index.data().toInt() == 1) {
+            text = tr("正在通信");
             painter->setPen(Qt::red);
         }
 
         text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
     } else {
-        QStyledItemDelegate::paint(painter, view_option, index);
-        return;
+        painter->setPen(Qt::black);
+        text = index.data().toString();
+        text_rect = style->subElementRect(QStyle::SE_ItemViewItemText, &view_option);
     }
 
     /* 绘制工作 */

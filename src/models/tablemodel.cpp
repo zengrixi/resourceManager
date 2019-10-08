@@ -1,11 +1,12 @@
 #include "tablemodel.h"
 
+#include <QDebug>
 #include <QLabel>
 #include <QString>
 
 #define VIEW_MAX 100 // 显示数据的最大值
 
-TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent) {
+TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent), data_list_(new QList<TargetData>) {
     // 消息头文本
     head_title << "资源名称"
                << "资源编号"
@@ -33,16 +34,13 @@ TableModel::TableModel(QObject *parent) : QAbstractTableModel(parent) {
                   << "正在通信";
 
     cow_max_ = head_title.size();
-    data_list_ = new TargetDataModel();
 }
 
 TableModel::~TableModel() {}
 
 int *TableModel::get_index() { return &index_; }
 
-QVector<TargetData *> *TableModel::get_msg_list() const { return &data_list_->target_list; }
-
-void TableModel::set_msg_list(TargetDataModel *msg_list) { data_list_ = msg_list; }
+QList<TargetData> *TableModel::get_msg_list() const { return data_list_; }
 
 void TableModel::update_data() {
     beginResetModel(); // 开始模型重置操作
@@ -52,7 +50,7 @@ void TableModel::update_data() {
 int TableModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
 
-    return data_list_->target_list.count();
+    return data_list_->count();
 }
 
 int TableModel::columnCount(const QModelIndex &parent) const {
@@ -66,16 +64,16 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
 
     int row = index.row();
     int column = index.column();
-    const TargetData *data = data_list_->target_list[row];
+    const TargetData *data = &data_list_->at(row);
 
     switch (role) {
         case Qt::TextColorRole:
             return QColor(Qt::white);
         case Qt::TextAlignmentRole:
             return QVariant(Qt::AlignHCenter | Qt::AlignVCenter);
-        case Qt::DisplayRole:
+        case Qt::DisplayRole: {
             if (column == ResourcesName)
-                return data->id;
+                return "id";
             else if (column == ResourcesId) {
                 if (data->title == nullptr) {
                     return "";
@@ -85,23 +83,26 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
             } else if (column == ResourcesType) {
                 return resource_type.at(data->type);
             } else if (column == AuthorizationStatus) {
-                return auth_status.at(data->auth_status);
+                qDebug() << "授权状态" << data->auth_status;
+                return data->auth_status;
             } else if (column == EquipmentStatus) {
-                return equi_status.at(data->equi_status);
-            } else if (column == ComunicationStatus)
-                return commun_status.at(data->commun_status);
-            else if (column == Longitude)
+                qDebug() << "装备状态" << data->equi_status;
+                return data->equi_status;
+            } else if (column == ComunicationStatus) {
+                qDebug() << "通信状态" << data->commun_status;
+                return data->commun_status;
+            } else if (column == Longitude)
                 return data->pos_x;
             else if (column == Latitude) {
                 return data->pos_y;
             } else if (column == Height) {
                 return QString::number(data->pos_z) + tr(" 米");
-            } else if (Count) {
+            } else if (column == Count) {
                 return data->count;
             }
 
             return "";
-
+        }
         default:
             return QVariant();
     }
@@ -130,12 +131,12 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const {
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
-void TableModel::set_data_model(TargetDataModel *list) {
-    QVector<TargetData *> data = list->target_list;
-    int size = data.size();
-    if (size > VIEW_MAX - 1) data.pop_front();
-    if (!data.isEmpty()) {
-        data.push_back(data.back());
-        index_ = data.size() - 1;
+void TableModel::set_data_model(QList<TargetData> *list) {
+    int size = data_list_->size();
+
+    if (size > VIEW_MAX - 1) data_list_->pop_front();
+    if (!list->isEmpty()) {
+        data_list_->push_back(list->back());
+        index_ = list->size() - 1;
     }
 }

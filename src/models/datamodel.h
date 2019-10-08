@@ -28,9 +28,4 @@ public:
     int count;         //使用此资源设备的目标数目
 };
 
-class TargetDataModel {
-public:
-    QVector<TargetData*> target_list;
-};
-
 #endif // DATAMODEL_H

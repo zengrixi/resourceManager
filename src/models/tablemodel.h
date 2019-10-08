@@ -5,6 +5,7 @@
 
 #include <QAbstractItemModel>
 #include <QAbstractTableModel>
+#include <QList>
 #include <QModelIndex>
 #include <QSortFilterProxyModel>
 #include <QTableView>
@@ -35,10 +36,9 @@ public:
     ~TableModel();
     void update_data();
 
-    void set_data_model(TargetDataModel *pList);
+    void set_data_model(QList<TargetData> *pList);
 
-    QVector<TargetData *> *get_msg_list() const;
-    void set_msg_list(TargetDataModel *pMsgList);
+    QList<TargetData> *get_msg_list() const;
 
     int *get_index();
 
@@ -56,8 +56,8 @@ private:
     QStringList equi_status;
     QStringList commun_status;
     int cow_max_;
-    int index_;
-    TargetDataModel *data_list_;
+    int index_ = 0;
+    QList<TargetData> *data_list_;
 };
 
 #endif // MESSGELIST_H_

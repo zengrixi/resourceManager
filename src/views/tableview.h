@@ -51,7 +51,7 @@ protected:
 
 private:
     TableModel *tabmodel_;
-    TargetDataModel data_list_;
+    QList<TargetData> data_list_;
 
     QScrollBar *hor_scrollbar_;
 
