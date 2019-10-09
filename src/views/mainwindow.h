@@ -24,7 +24,6 @@ public:
 
 protected:
     virtual void closeEvent(QCloseEvent *e) override;
-    virtual void paintEvent(QPaintEvent *) override;
 
 private:
     void create_titlebar();
@@ -39,7 +38,5 @@ private:
     QVBoxLayout *layout_;
     NXMainWindow *central_window_;
     FramelessHelper *helper_;
-
-    NinePatchPainter *nine_patch_painter_;
 };
 #endif // MAINWINDOW_H

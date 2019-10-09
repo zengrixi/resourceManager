@@ -5,11 +5,7 @@
 
 MainWindow::MainWindow() {
     setWindowFlags(Qt::FramelessWindowHint);
-    //    setAttribute(Qt::WA_TranslucentBackground);
     this->setMinimumSize(1024, 768);
-
-    // 添加背景图
-    nine_patch_painter_ = new NinePatchPainter(QPixmap(":/Dock/resources/background.png"), 23, 12, 23, 33);
 
     // 添加样式
     this->setObjectName("mainwindow");
@@ -31,6 +27,9 @@ MainWindow::MainWindow() {
     layout_->setSpacing(0);
     layout_->setContentsMargins(0, 0, 0, 0);
     central_window_->setLayout(layout_);
+
+    LoadSrcDialog *lod = new LoadSrcDialog();
+    lod->show();
 }
 
 MainWindow::~MainWindow() {}
@@ -57,12 +56,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
             break;
         }
     }
-}
-
-void MainWindow::paintEvent(QPaintEvent *) {
-    QPainter painter(this);
-
-    nine_patch_painter_->paint(&painter, rect()); // 九宫格绘制
 }
 
 void MainWindow::create_titlebar() {
