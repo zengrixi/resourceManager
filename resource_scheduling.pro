@@ -27,7 +27,6 @@ SOURCES += \
     src/utils/3rdParty/NXMainWindow.cpp \
     src/utils/frameless_helper.cpp \
     src/utils/ninepatchpainter.cpp \
-    src/utils/xmlsetting.cpp \
     src/views/loadsrcdialog.cpp \
     src/views/mainwindow.cpp \
     src/views/resourcesetting.cpp \
@@ -47,7 +46,6 @@ HEADERS += \
     src/utils/3rdParty/NXMainWindow.h \
     src/utils/frameless_helper.h \
     src/utils/ninepatchpainter.h \
-    src/utils/xmlsetting.h \
     src/views/loadsrcdialog.h \
     src/views/mainwindow.h \
     src/views/resourcesetting.h \

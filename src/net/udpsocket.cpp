@@ -30,16 +30,6 @@ void UdpSocket::run() {
 void UdpSocket::process_data(QString data) {}
 
 /*-----------------------------------------------------------------------------|
- |                                  NetWork                                    |
- |----------------------------------------------------------------------------*/
-
-NetWork::NetWork() {}
-
-NetWork::~NetWork() {}
-
-bool NetWork::udp_bind(QString addr, quint16 port) {}
-
-/*-----------------------------------------------------------------------------|
  |                                XmlSetting                                   |
  |----------------------------------------------------------------------------*/
 
@@ -111,8 +101,10 @@ void XmlSetting::read_xml(const QString &name) {
     while (!node.isNull()) {
         if (node.isElement()) {
             QDomElement e = node.toElement(); //转换为元素，注意元素和节点是两个数据结构，其实差不多
+            //打印键值对，tagName和nodeName是一个东西
             qDebug() << e.tagName() << " " << e.attribute("host_addr") << " " << e.attribute("port")
-                     << e.attribute("endian") << e.attribute("proto_name"); //打印键值对，tagName和nodeName是一个东西
+                     << e.attribute("endian") << e.attribute("proto_name");
+
             QDomNodeList list = e.childNodes();
             //遍历子元素，count和size都可以用,可用于标签数计数
             for (int i = 0; i < list.count(); i++) {

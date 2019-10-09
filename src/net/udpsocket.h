@@ -43,16 +43,6 @@ private:
     QHostAddress host_addr_;
 };
 
-class NetWork : public QObject {
-    Q_OBJECT
-
-public:
-    NetWork();
-    virtual ~NetWork() override;
-
-    bool udp_bind(QString addr, quint16 port);
-};
-
 class XmlSetting {
 public:
     XmlSetting();
