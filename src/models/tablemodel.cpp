@@ -83,13 +83,10 @@ QVariant TableModel::data(const QModelIndex &index, int role) const {
             } else if (column == ResourcesType) {
                 return resource_type.at(data->type);
             } else if (column == AuthorizationStatus) {
-                qDebug() << "授权状态" << data->auth_status;
                 return data->auth_status;
             } else if (column == EquipmentStatus) {
-                qDebug() << "装备状态" << data->equi_status;
                 return data->equi_status;
             } else if (column == ComunicationStatus) {
-                qDebug() << "通信状态" << data->commun_status;
                 return data->commun_status;
             } else if (column == Longitude)
                 return data->pos_x;

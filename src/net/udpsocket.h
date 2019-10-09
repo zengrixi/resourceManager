@@ -1,38 +1,76 @@
 #pragma once
 
+#include <QDebug>
+#include <QDomDocument>
+#include <QFile>
 #include <QList>
-#include <QObject>
+#include <QString>
+#include <QThread>
 #include <QUdpSocket>
-#include <mutex>
-#include <thread>
+#include <QXmlStreamWriter>
 
-using namespace std;
-
-class UdpSocket : public QObject {
+class UdpSocket : public QThread {
     Q_OBJECT
 
-private:
-    static UdpSocket *pInstance;
-    UdpSocket();
-
 public:
-    static UdpSocket *getInstance();
+    /**
+     * @brief UdpSocket
+     * @param addr 组播地址
+     * @param port 端口
+     */
+    UdpSocket(QString addr, quint16 port);
     ~UdpSocket();
 
-    bool bindServer(QString addr, quint32 port);
-
-    void processData(QString data, qint32 size);
-
-public slots:
-    /*
-     * 读取服务器发送的消息
+protected:
+    /**
+     * @brief run
+     * 循环获取组播发送的数据并调用业务处理程序
      */
-    void readServer();
+    virtual void run() override;
+
+private slots:
+    /**
+     * @brief process_data 业务逻辑处理
+     * @param data 接收到的数据
+     */
+    void process_data(QString data);
 
 private:
     /* 协议相关 */
-    uint16_t m_port;
-    QString m_addr;
-    QUdpSocket m_socket;
-    QHostAddress m_hostAddr;
+    quint16 port_;
+    QString addr_;
+    QUdpSocket socket_;
+    QHostAddress host_addr_;
+};
+
+class NetWork : public QObject {
+    Q_OBJECT
+
+public:
+    NetWork();
+    virtual ~NetWork() override;
+
+    bool udp_bind(QString addr, quint16 port);
+};
+
+class XmlSetting {
+public:
+    XmlSetting();
+    ~XmlSetting();
+
+    /**
+     * @brief write_xml
+     * @param file 文件路径
+     */
+    void write_xml(const QString &file);
+
+    /**
+     * @brief read_xml
+     * @param file 文件路径
+     */
+    void read_xml(const QString &file);
+
+private:
+    QDomDocument *protocols_;
+    QFile *file_;
 };

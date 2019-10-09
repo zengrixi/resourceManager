@@ -6,29 +6,28 @@ class NXDockWidgetTabButton;
 class NXDockWidget;
 
 /*!
-*/
-class NXDockWidgetTabBar : public QToolBar
-{
-	Q_OBJECT
+ */
+class NXDockWidgetTabBar : public QToolBar {
+    Q_OBJECT
 public:
-	explicit NXDockWidgetTabBar(Qt::DockWidgetArea area);
-	~NXDockWidgetTabBar();
+    explicit NXDockWidgetTabBar(Qt::DockWidgetArea area);
+    ~NXDockWidgetTabBar();
 
 public:
-	void addDockWidget(NXDockWidget* dockWidget);
-	bool removeDockWidget(NXDockWidget* dockWidget);
+    void addDockWidget(NXDockWidget* dockWidget);
+    bool removeDockWidget(NXDockWidget* dockWidget);
 
-	void insertSpacing();
-	void removeSpacing();
+    void insertSpacing();
+    void removeSpacing();
 
 private:
-	void dockWidgetButton_clicked();
+    void dockWidgetButton_clicked();
 
 signals:
-	void signal_dockWidgetButton_clicked(NXDockWidget* dockWidget);
-	
+    void signal_dockWidgetButton_clicked(NXDockWidget* dockWidget);
+
 private:
-	Qt::DockWidgetArea m_area;
-	QWidget* m_spacer;
-	std::map<NXDockWidgetTabButton*, NXDockWidget*> m_tabs;
+    Qt::DockWidgetArea m_area;
+    QWidget* m_spacer;
+    std::map<NXDockWidgetTabButton*, NXDockWidget*> m_tabs;
 };
