@@ -60,6 +60,8 @@ public:
      */
     void read_xml(const QString &file);
 
+    void traversing_node(QDomElement *e);
+
 private:
     QDomDocument *protocols_;
     QFile *file_;

@@ -4,6 +4,11 @@
 #include <QStyledItemDelegate>
 #include <QWidget>
 
+/**
+ * @brief The TextDelegate class
+ * 表格代理功能
+ * 提供颜色更改和表格操作
+ */
 class TextDelegate : public QStyledItemDelegate {
     Q_OBJECT
 public:

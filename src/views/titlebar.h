@@ -7,6 +7,9 @@
 class QPushButton;
 class QHBoxLayout;
 
+/**
+ * @brief The TitleBar class 自定义标题栏
+ */
 class TitleBar : public QWidget {
     Q_OBJECT
 

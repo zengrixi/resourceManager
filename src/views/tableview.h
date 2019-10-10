@@ -18,34 +18,18 @@ public:
     ~TableView();
 
 public slots:
-    /*
-     * @description: 测试单元
-     * @param:
-     * @return:
-     */
     void add_data();
     void clean_data();
 
 private:
-    /*
-     * @description: 样式设置
-     * @param:
-     * @return:
-     */
     void set_sty_sheet();
 
 protected:
-    /*
-     * @description: 加载样式表
-     * @param: styleSheetFile 样式表文件
-     * @return:
-     */
     void load_style_sheet(const QString &styleSheetFile);
 
-    /*
-     * @description: 鼠标滚轮事件
-     * @param:
-     * @return:
+    /**
+     * @brief wheelEvent 鼠标滚轮操作显示数据
+     * @param e
      */
     virtual void wheelEvent(QWheelEvent *e) override;
 

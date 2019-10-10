@@ -49,10 +49,10 @@ private:
     FramelessHelperPrivate *d;
 };
 
-/*****
- * CursorPosCalculator
+/**
+ * @brief The CursorPosCalculator class
  * 计算鼠标是否位于左、上、右、下、左上角、左下角、右上角、右下角
- *****/
+ */
 class CursorPosCalculator {
 public:
     explicit CursorPosCalculator();
@@ -74,10 +74,10 @@ public:
     static int title_height_;
 };
 
-/*****
- * WidgetData
+/**
+ * @brief The WidgetData class
  * 更新鼠标样式、移动窗体、缩放窗体
- *****/
+ */
 class WidgetData {
 public:
     explicit WidgetData(FramelessHelperPrivate *d_, QWidget *ptop_level_widget);
@@ -119,10 +119,10 @@ private:
     Qt::WindowFlags window_flags_;
 };
 
-/*****
- * FramelessHelperPrivate
+/**
+ * @brief The FramelessHelperPrivate class
  * 存储界面对应的数据集合，以及是否可移动、可缩放属性
- *****/
+ */
 class FramelessHelperPrivate {
 public:
     QHash<QWidget *, WidgetData *> widget_data_hash_;

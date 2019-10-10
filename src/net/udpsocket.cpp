@@ -105,14 +105,30 @@ void XmlSetting::read_xml(const QString &name) {
             qDebug() << e.tagName() << " " << e.attribute("host_addr") << " " << e.attribute("port")
                      << e.attribute("endian") << e.attribute("proto_name");
 
-            QDomNodeList list = e.childNodes();
-            //遍历子元素，count和size都可以用,可用于标签数计数
-            for (int i = 0; i < list.count(); i++) {
-                QDomNode n = list.at(i);
-                if (node.isElement()) qDebug() << n.nodeName() << ":" << n.toElement().text();
-            }
+            /**
+             * 传入协议地址和端口，开启协议解析线程
+             */
+            QString addr = e.attribute("host_addr");
+            quint16 port = e.attribute("port").toUShort();
+            UdpSocket *socket = new UdpSocket(addr, port);
+            socket->start();
+
+            //遍历子元素
         }
         node = node.nextSibling(); //下一个兄弟节点,nextSiblingElement()是下一个兄弟元素，都差不多
+    }
+}
+
+void XmlSetting::traversing_node(QDomElement *e) {
+    QDomNodeList list = e->childNodes();
+    //遍历子元素，count和size都可以用,可用于标签数计数
+    for (int i = 0; i < list.count(); i++) {
+        QDomNode n = list.at(i);
+        if (node.isElement()) {
+            qDebug() << n.nodeName() << ":" << n.toElement().attribute("struct_name")
+                     << n.toElement().attribute("struct_type") << n.toElement().attribute("struct_len")
+                     << n.toElement().attribute("head_len");
+        }
     }
 }
 
