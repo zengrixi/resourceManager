@@ -10,7 +10,7 @@
 *.dylib
 
 # Qt-es
-object_script.*.Release
+object_script.*.release
 object_script.*.Debug
 *_plugin_import.cpp
 /.qmake.cache
@@ -41,6 +41,3 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
-
-# SourceInsight
-*.si4project/

@@ -1,0 +1,13 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "includePath": [
+                "${workspaceFolder}/include/**",
+                "D:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.16.27023/include/**",
+                "D:/Windows Kits/10/Include/**",
+                "D:/Qt/Qt5.12.4/5.12.4/msvc2017_64/include/**"
+            ]
+        }
+    ]
+}

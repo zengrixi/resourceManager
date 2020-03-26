@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp",
+			"random": "cpp",
+			"algorithm": "cpp",
+			"functional": "cpp",
+			"memory": "cpp",
+			"xtree": "cpp",
+			"ios": "cpp",
+			"ostream": "cpp",
+			"variant": "cpp",
+			"xiosbase": "cpp",
+			"xlocnum": "cpp",
+			"xstring": "cpp",
+			"xutility": "cpp",
+			"*.rh": "cpp",
+			"iosfwd": "cpp",
+			"queue": "cpp",
+			"type_traits": "cpp",
+			"xtr1common": "cpp",
+			"limits": "cpp",
+			"map": "cpp",
+			"unordered_map": "cpp",
+			"xhash": "cpp",
+			"qpainter": "cpp"
+		}
+	}
+}
