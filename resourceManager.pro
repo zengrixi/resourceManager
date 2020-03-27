@@ -39,6 +39,7 @@ RESOURCES +=  \
     top-window-resources.qrc
 
 FORMS +=  \
+    src/gui/mainwindow.ui \
     src/gui/messagebox.ui \
     src/gui/topwindow.ui
 
