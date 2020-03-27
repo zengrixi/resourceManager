@@ -36,6 +36,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += 
 
 FORMS +=  \
+    src/gui/messagebox.ui \
     src/gui/topwindow.ui
 
 # 配置执行文件所在目录

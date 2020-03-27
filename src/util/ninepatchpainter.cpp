@@ -26,9 +26,9 @@ public:
 
     QPixmap left_pixmap_;         // 左边的子图
     QPixmap top_left_pixmap_;     // 左上角的子图
-    QPixmap top_pixmap;           // 顶部的子图
+    QPixmap top_pixmap_;           // 顶部的子图
     QPixmap top_right_pixmap_;    // 右上角的子图
-    QPixmap right_pixmap;         // 右边的子图
+    QPixmap right_pixmap_;         // 右边的子图
     QPixmap bottom_left_pixmap_;  // 左下角的子图
     QPixmap bottom_pixmap_;       // 底部的子图
     QPixmap bottom_right_pixmap_; // 右下角的子图
@@ -51,9 +51,9 @@ NinePatchPainterPrivate::NinePatchPainterPrivate(const QPixmap &background,
 
     left_pixmap_ = background.copy(rects.at(0));
     top_left_pixmap_ = background.copy(rects.at(1));
-    top_pixmap = background.copy(rects.at(2));
+    top_pixmap_ = background.copy(rects.at(2));
     top_right_pixmap_ = background.copy(rects.at(3));
-    right_pixmap = background.copy(rects.at(4));
+    right_pixmap_ = background.copy(rects.at(4));
     bottom_right_pixmap_ = background.copy(rects.at(5));
     bottom_pixmap_ = background.copy(rects.at(6));
     bottom_left_pixmap_ = background.copy(rects.at(7));
@@ -133,26 +133,26 @@ void NinePatchPainter::paint(QPainter *painter, const QRect &rect) const
     {
         // 水平拉伸
         painter->drawPixmap(left_rect, d_->scalePixmap(d_->left_pixmap_, left_rect.size()));
-        painter->drawPixmap(right_rect, d_->scalePixmap(d_->right_pixmap, right_rect.size()));
+        painter->drawPixmap(right_rect, d_->scalePixmap(d_->right_pixmap_, right_rect.size()));
     }
     else
     {
         // 水平平铺
         painter->drawTiledPixmap(left_rect, d_->left_pixmap_);
-        painter->drawTiledPixmap(right_rect, d_->right_pixmap);
+        painter->drawTiledPixmap(right_rect, d_->right_pixmap_);
     }
 
     // 绘制上、下边
     if (d_->vertical_stretch_)
     {
         // 垂直拉伸
-        painter->drawPixmap(top_rect, d_->scalePixmap(d_->top_pixmap, top_rect.size()));
+        painter->drawPixmap(top_rect, d_->scalePixmap(d_->top_pixmap_, top_rect.size()));
         painter->drawPixmap(bottom_rect, d_->scalePixmap(d_->bottom_pixmap_, bottom_rect.size()));
     }
     else
     {
         // 垂直平铺
-        painter->drawTiledPixmap(top_rect, d_->top_pixmap);
+        painter->drawTiledPixmap(top_rect, d_->top_pixmap_);
         painter->drawTiledPixmap(bottom_rect, d_->bottom_pixmap_);
     }
 
