@@ -19,6 +19,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES +=  \
     src/gui/topwindow.cpp \
+    src/gui/messagebox.cpp \
+    src/gui/mainwindow.cpp \
     src/main.cpp \
     src/util/ninepatchpainter.cpp \
     src/util/xmlmap.cpp
@@ -33,7 +35,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += 
+RESOURCES +=  \
+    top-window-resources.qrc
 
 FORMS +=  \
     src/gui/messagebox.ui \

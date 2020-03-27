@@ -4,5 +4,7 @@ INCLUDEPATH += \
 
 HEADERS += \
         $$PWD/gui/topwindow.h \
+        $$PWD/gui/mainwindow.h \
+        $$PWD/gui/messagebox.h \
 	$$PWD/util/ninepatchpainter.h \
 	$$PWD/util/xmlmap.h

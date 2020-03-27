@@ -28,7 +28,18 @@
 			"map": "cpp",
 			"unordered_map": "cpp",
 			"xhash": "cpp",
-			"qpainter": "cpp"
+			"qpainter": "cpp",
+			"exception": "cpp",
+			"iterator": "cpp",
+			"ratio": "cpp",
+			"streambuf": "cpp",
+			"tuple": "cpp",
+			"chrono": "cpp",
+			"deque": "cpp",
+			"fstream": "cpp",
+			"istream": "cpp",
+			"vector": "cpp",
+			"xlocale": "cpp"
 		}
 	}
 }
