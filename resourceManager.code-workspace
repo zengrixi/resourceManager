@@ -39,7 +39,8 @@
 			"fstream": "cpp",
 			"istream": "cpp",
 			"vector": "cpp",
-			"xlocale": "cpp"
+			"xlocale": "cpp",
+			"qrect": "cpp"
 		}
 	}
 }

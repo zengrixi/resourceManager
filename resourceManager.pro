@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES +=  \
+    src/gui/filebrowse.cpp \
     src/gui/topwindow.cpp \
     src/gui/messagebox.cpp \
     src/gui/mainwindow.cpp \
@@ -25,7 +26,7 @@ SOURCES +=  \
     src/util/ninepatchpainter.cpp \
     src/util/xmlmap.cpp
 
-HEADERS += \
+HEADERS += 
 
 # 项目头文件路径
 include($$PWD/include/headers.pri)
@@ -39,6 +40,7 @@ RESOURCES +=  \
     top-window-resources.qrc
 
 FORMS +=  \
+    src/gui/filebrowse.ui \
     src/gui/mainwindow.ui \
     src/gui/messagebox.ui \
     src/gui/topwindow.ui
