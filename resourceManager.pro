@@ -37,6 +37,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES +=  \
+    qdarkstyle/style.qrc \
     top-window-resources.qrc
 
 FORMS +=  \

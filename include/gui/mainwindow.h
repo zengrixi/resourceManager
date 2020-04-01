@@ -30,6 +30,9 @@ public Q_SLOTS:
     void loadXMLWindow();
 
 private:
+    void loadStyle();
+
+private:
     Ui::MainWindow *ui;
 
     TopWindow *top_file_browse;

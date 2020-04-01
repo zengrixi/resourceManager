@@ -81,6 +81,7 @@ void FileBrowse::addTableWidgetRow(const QStringList &data)
     for (int i = 0; i < 4; i++)
     {
         QTableWidgetItem *item = new QTableWidgetItem(data.at(i));
+        item->setTextAlignment(Qt::AlignCenter);
         ui->tableWidget->setItem(row, i, item);
     }
 }

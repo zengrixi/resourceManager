@@ -6,6 +6,8 @@
 #include "xmlmap.h"
 #include "ui_mainwindow.h"
 
+static constexpr char *s_style_sheet_qss = ":qdarkstyle/style.qss";
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), top_file_browse(nullptr)
 {
     ui->setupUi(this);
@@ -17,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // 设置左右窗体的比例为1:9
     ui->splitter->setStretchFactor(0, 1);
     ui->splitter->setStretchFactor(1, 9);
+
+    // loadStyle(); // 加载样式表文件
 
     connect(ui->action_loadxml, &QAction::triggered, this, &MainWindow::loadXMLWindow);
 }
@@ -63,4 +67,19 @@ void MainWindow::loadXMLWindow()
     // 读取文件夹内所有XML文件
 
     // 添加条目
+}
+
+void MainWindow::loadStyle()
+{
+    QFile file(s_style_sheet_qss);
+    if (!file.exists())
+    {
+        MessageBox::message(tr("设置样式表失败，找不到文件！"));
+    }
+    else
+    {
+        file.open(QFile::ReadOnly | QFile::Text);
+        QTextStream text_stream(&file);
+        setStyleSheet(text_stream.readAll());
+    }
 }
