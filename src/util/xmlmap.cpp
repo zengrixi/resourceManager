@@ -1,9 +1,9 @@
 #include "xmlmap.h"
 
-XmlMap::XmlMap(QString xmlPath)
+XmlMap::XmlMap(QString xml_path)
 {
     QDomDocument d;
-    file_ = new QFile(xmlPath);
+    file_ = new QFile(xml_path);
     if (file_->open(QFile::ReadOnly))
     {
         if (d.setContent(file_))

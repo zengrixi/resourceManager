@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<root>
+	<Enviroment>
+		<DateTime BattleTime="2022年12月22日 12:12:12.0"/>
+	</Enviroment>
+	<Entities>
+		<Catalog name="红方">
+			<System name="国家指" id="1" address="0x004ea53f" group="指控中心"> 
+				<Entity  name="国家指" type="1" pos="116.399,39.9132,1000.0"/>
+				<neighbor name = "反导指控中心"/>
+			</System>
+			<System name="反导指控中心" id="99" address="0x00de53f" group="指控中心"> 
+				<Entity  name="反导指控中心" type="1" pos="114.53,40.22,1000.0"/>
+				<neighbor name= "国家指" />
+			</System>
+			<System name="预警卫星" id="6" address="0x00134eaf" group="预警系统">
+				<Entity  name="预警卫星" type="4" pos="123.53,48.70,1578600.0">
+					<Attribute name="轨道根数" a="42164000" e="0.0" i="0.0" omega="114.53" m="0.0"/>
+					<Attribute name="相机参数" fov="2.0" unit="度"/>
+				</Entity>
+				<superior name= "反导指控中心"/>
+			</System>
+			<System name="702预警雷达_1_" id="9" address="0x00a54e3f" group="702雷达">					
+				<Entity  name="702预警雷达" type="3" pos="121.388,37.4612,0.00000000">
+					<Attribute name="覆盖范围" minYaw="0.0" maxYaw="360.0" minPitch="10.0" maxPitch="80.0" maxRange="5000000"/>
+				</Entity>
+				<superior name= "反导指控中心"/>				
+			</System>
+			<System name="702预警雷达_2_" id="10" address="0x00a5e43f" group="702雷达">					
+				<Entity  name="702预警雷达_2_" type="3" pos="115.90140178,24.40001468,0.0">
+					<Attribute name="覆盖范围" minYaw="0.0" maxYaw="360.0" minPitch="10.0" maxPitch="80.0" maxRange="5000000"/>
+				</Entity>
+				<superior name= "反导指控中心"/>				
+			</System>
+			<System name="HQ9火力单元1" id="12" address="0x0034ea5f" group="拦截系统">
+					<Entity  name="HQ9火力单元1" type="5" pos="105.751,39.779,1000.0">
+						<Attribute name="可用弹量" value="30"/>
+					</Entity>
+			</System>
+			<System name="HQ9火力单元2" id="14" address="0x00cde30f" group="拦截系统">
+					<Entity  name="HQ9火力单元2" type="5" pos="105.751,39.778,1000.0">
+						<Attribute name="可用弹量" value="30"/>
+					</Entity>
+			</System>
+		</Catalog>
+		<Catalog name="蓝方">
+			<Entity id="16" name="民兵3" type="2" pos="-120.636,37.493,1000.0"/>
+		</Catalog>
+	</Entities>
+</root>

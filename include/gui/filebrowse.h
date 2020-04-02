@@ -1,16 +1,17 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// 版权声明： Copyright (c) 2020 曾日希. All rights reserved.
+// 文件名称： filebrowse.h
+// 文件摘要： 想定文件的浏览窗体
+// 创建作者： 曾日希
+// 创建时间： 2020-04-02 10:04:27
+//
+///////////////////////////////////////////////////////////////////////////////
 #ifndef FILEBROWSE_H
 #define FILEBROWSE_H
 
 #include <QDialog>
 #include <QDir>
-
-struct FileProperty
-{
-    QString file_name; // 文件名
-    QString created;   // 创建日期
-    QString last_read; // 最后一次修改日期
-    QString remark;    // 备注
-};
 
 namespace Ui
 {
@@ -23,6 +24,12 @@ class FileBrowse : public QDialog
 public:
     explicit FileBrowse(QWidget *parent = nullptr);
     ~FileBrowse();
+
+    // 获取文件路劲及文件名
+    QString getFilePath() const
+    {
+        return file_path_;
+    }
 
 private:
     // 初始化表格样式
@@ -38,11 +45,14 @@ Q_SIGNALS:
     void onClickOK();
     void onClickCancel();
 
+private Q_SLOTS:
+    void getSelectedRow();
+
 private:
     Ui::FileBrowse *ui;
 
-    QStringList file_name_list_;
-    FileProperty *file_property_;
+    QStringList file_path_list_; // 保存的文件路径
+    QString file_path_;          // 选中的文件路径
 };
 
 #endif // FILEBROWSE_H

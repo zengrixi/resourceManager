@@ -40,7 +40,8 @@
 			"istream": "cpp",
 			"vector": "cpp",
 			"xlocale": "cpp",
-			"qrect": "cpp"
+			"qrect": "cpp",
+			"qstandarditemmodel": "cpp"
 		}
 	}
 }
