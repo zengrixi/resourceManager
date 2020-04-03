@@ -16,11 +16,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setWindowTitle(tr("资源调度管理软件"));
 
     // 设置左右窗体的比例为1:9
-    ui->splitter->setStretchFactor(0, 1);
-    ui->splitter->setStretchFactor(1, 9);
+    ui->splitter->setStretchFactor(0, 3);
+    ui->splitter->setStretchFactor(1, 7);
 
     // loadStyle(); // 加载样式表文件
-    initTreeWidget();
+    initTreeWidget();     // 初始化树形面板
+    initTableWidgetOne(); // 初始化反导装备资源信息窗口
+    initTableWidgetTwo(); // 初始化预警系统资源状态显示窗口
 
     connect(ui->action_loadxml, &QAction::triggered, this, &MainWindow::loadXMLWindow);
 }
@@ -43,14 +45,19 @@ void MainWindow::createFileBrowse()
     connect(file_browse, &FileBrowse::onClickCancel, &top_file_browse, &TopWindow::close);
     top_file_browse.showModal();
 
-    // 关闭想定选择窗体后，获取用户选择的想定文件路径
+    // 1、清理XML读取器
+    if (xml_map_ != nullptr)
+    {
+        delete xml_map_;
+        xml_map_ = nullptr;
+    }
+
+    // 2、关闭想定选择窗体后，获取用户选择的想定文件路径
     const QString &file_path = file_browse->getFilePath();
+
+    // 3、读取想定文件
     if (!file_path.isEmpty())
     {
-        if (xml_map_ != nullptr)
-        {
-            delete xml_map_;
-        }
         xml_map_ = new XmlMap(file_path);
     }
 }
@@ -115,6 +122,50 @@ void MainWindow::initTreeWidget()
     }
 }
 
+// 初始化反导装备资源信息窗口
+void MainWindow::initTableWidgetOne()
+{
+    // 初始化表格
+    ui->tableWidget->setColumnCount(8);
+    const QStringList table_widget_head = {QStringLiteral("资源名称"),
+        QStringLiteral("资源编号"),
+        QStringLiteral("授权状态"),
+        QStringLiteral("装备状态"),
+        QStringLiteral("通信状态"),
+        QStringLiteral("位置-经度"),
+        QStringLiteral("位置-纬度"),
+        QStringLiteral("位置-高度")};
+    ui->tableWidget->setHorizontalHeaderLabels(table_widget_head);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // 表格均分窗体
+    ui->tableWidget->verticalHeader()->setHidden(true);                              // 隐藏行号
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);            // 设置选择模式，选择单行
+    ui->tableWidget->setShowGrid(true);                                              // 设置不显示格子线
+    ui->tableWidget->setFocusPolicy(Qt::NoFocus);                                    // 去除点击表格虚线
+    ui->tableWidget->horizontalHeader()->setHighlightSections(false);                // 点击表单元时不对表头获取焦点
+    QFont font = ui->tableWidget->horizontalHeader()->font();                        // 先获取字体
+    font.setBold(true);                                                              // 字体设置为粗体
+    ui->tableWidget->horizontalHeader()->setFont(font);                              // 设置每一列的标题字体为粗体
+}
+
+// 初始化预警系统资源状态显示窗口
+void MainWindow::initTableWidgetTwo()
+{
+    // 初始化表格
+    ui->tableWidget_2->setColumnCount(5);
+    const QStringList table_widget_head = {
+        QStringLiteral("时刻"), QStringLiteral("命令发布"), QStringLiteral("命令执行"), QStringLiteral("作用目标"), QStringLiteral("命令内容")};
+    ui->tableWidget_2->setHorizontalHeaderLabels(table_widget_head);
+    ui->tableWidget_2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // 表格均分窗体
+    ui->tableWidget_2->verticalHeader()->setHidden(true);                              // 隐藏行号
+    ui->tableWidget_2->setSelectionBehavior(QAbstractItemView::SelectRows);            // 设置选择模式，选择单行
+    ui->tableWidget_2->setShowGrid(false);                                             // 设置不显示格子线
+    ui->tableWidget_2->setFocusPolicy(Qt::NoFocus);                                    // 去除点击表格虚线
+    ui->tableWidget_2->horizontalHeader()->setHighlightSections(false);                // 点击表单元时不对表头获取焦点
+    QFont font = ui->tableWidget_2->horizontalHeader()->font();                        // 先获取字体
+    font.setBold(true);                                                                // 字体设置为粗体
+    ui->tableWidget_2->horizontalHeader()->setFont(font);                              // 设置每一列的标题字体为粗体
+}
+
 // 加载样式表文件
 void MainWindow::loadStyle()
 {
@@ -141,4 +192,13 @@ void MainWindow::freeResource()
     // }
 
     //
+}
+
+// 树形控件被点击响应
+void MainWindow::on_tree_view_clicked(const QModelIndex &index)
+{
+    QString str;
+    str += QStringLiteral("当前选中：%1\nrow:%2,column:%3\n").arg(index.data().toString()).arg(index.row()).arg(index.column());
+    str += QStringLiteral("父级：%1\n").arg(index.parent().data().toString());
+    qDebug() << str;
 }

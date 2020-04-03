@@ -12,6 +12,7 @@
 
 #include <QMainWindow>
 #include <QStandardItemModel>
+#include <QGridLayout>
 
 #include "messagebox.h"
 #include "topwindow.h"
@@ -37,9 +38,17 @@ public:
 public Q_SLOTS:
     void loadXMLWindow();
 
+private Q_SLOTS:
+    // 树形控件被点击响应
+    void on_tree_view_clicked(const QModelIndex &index);
+
 private:
     // 初始化树列表
     void initTreeWidget();
+    // 初始化反导装备资源信息窗口
+    void initTableWidgetOne();
+    // 初始化预警系统资源状态显示窗口
+    void initTableWidgetTwo();
     // 加载样式表文件
     void loadStyle();
     // 释放资源
@@ -50,7 +59,13 @@ private:
 
     TopWindow *top_file_browse;
     XmlMap *xml_map_; // 想定解析
+
+    // 树形窗口
     QMap<QString, QStandardItem *> item_group_;
+
+    // 反导装备资源信息窗口
+
+    // 预警系统资源状态显示
 };
 
 #endif // MAINWINDOW_H
