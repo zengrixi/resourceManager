@@ -46,6 +46,7 @@ void FileBrowse::initTableWidget()
     QFont font = ui->tableWidget->horizontalHeader()->font();                        // 先获取字体
     font.setBold(true);                                                              // 字体设置为粗体
     ui->tableWidget->horizontalHeader()->setFont(font);                              // 设置每一列的标题字体为粗体
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);             // 设置为只读属性 不可编辑
 }
 
 void FileBrowse::showIs()
@@ -93,7 +94,6 @@ void FileBrowse::addTableWidgetRow(const QStringList &data)
     {
         QTableWidgetItem *item = new QTableWidgetItem(data.at(i));
         item->setTextAlignment(Qt::AlignCenter);
-        item->setFlags(item->flags() & (~Qt::ItemIsEditable)); // 设置不可编辑
         ui->tableWidget->setItem(row, i, item);
     }
 }

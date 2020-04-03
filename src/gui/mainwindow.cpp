@@ -5,7 +5,7 @@
 
 #include "ui_mainwindow.h"
 
-static constexpr char *s_style_sheet_qss = ":qdarkstyle/style.qss";
+static const char *s_style_sheet_qss = ":qdarkstyle/style.qss";
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), top_file_browse(nullptr), xml_map_(nullptr)
 {
@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     initTableWidgetTwo(); // 初始化预警系统资源状态显示窗口
 
     connect(ui->action_loadxml, &QAction::triggered, this, &MainWindow::loadXMLWindow);
+
+    for (int i = 0; i < 100; i++){}
 }
 
 MainWindow::~MainWindow()
@@ -82,7 +84,6 @@ void MainWindow::loadXMLWindow()
                 {
                     QStandardItem *item_radar = new QStandardItem(name); // 以后可添加图片
                     item_group_.find("预警雷达").value()->appendRow(item_radar);
-                    item_radar->setFlags(item_radar->flags() & (~Qt::ItemIsEditable)); // 设置不可编辑
                 }
                 else
                 {
@@ -96,7 +97,8 @@ void MainWindow::loadXMLWindow()
 // 初始化树列表
 void MainWindow::initTreeWidget()
 {
-    ui->tree_view->setHeaderHidden(true); // 隐藏表头
+    ui->tree_view->setHeaderHidden(true);                              // 隐藏表头
+    ui->tree_view->setEditTriggers(QAbstractItemView::NoEditTriggers); // 设置为只读属性 不可编辑
 
     QStandardItemModel *model = new QStandardItemModel(ui->tree_view);
     QStandardItem *item_satellite = new QStandardItem(QStringLiteral("预警卫星")); // 以后可添加图标
@@ -114,12 +116,6 @@ void MainWindow::initTreeWidget()
     item_group_.insert(QStringLiteral("预警雷达"), item_early);
     item_group_.insert(QStringLiteral("识别雷达"), item_identify);
     item_group_.insert(QStringLiteral("空基探测装备"), item_detection);
-
-    // 设置item的属性
-    foreach (auto item, item_group_)
-    {
-        item->setFlags(item->flags() & (~Qt::ItemIsEditable)); // 设置不可编辑
-    }
 }
 
 // 初始化反导装备资源信息窗口
@@ -145,6 +141,7 @@ void MainWindow::initTableWidgetOne()
     QFont font = ui->tableWidget->horizontalHeader()->font();                        // 先获取字体
     font.setBold(true);                                                              // 字体设置为粗体
     ui->tableWidget->horizontalHeader()->setFont(font);                              // 设置每一列的标题字体为粗体
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);             // 设置表格为只读属性 不可编辑
 }
 
 // 初始化预警系统资源状态显示窗口
@@ -164,6 +161,7 @@ void MainWindow::initTableWidgetTwo()
     QFont font = ui->tableWidget_2->horizontalHeader()->font();                        // 先获取字体
     font.setBold(true);                                                                // 字体设置为粗体
     ui->tableWidget_2->horizontalHeader()->setFont(font);                              // 设置每一列的标题字体为粗体
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);               // 设置表格为只读属性 不可编辑
 }
 
 // 加载样式表文件

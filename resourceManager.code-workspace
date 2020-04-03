@@ -41,7 +41,8 @@
 			"vector": "cpp",
 			"xlocale": "cpp",
 			"qrect": "cpp",
-			"qstandarditemmodel": "cpp"
+			"qstandarditemmodel": "cpp",
+			"qdomdocument": "cpp"
 		}
 	}
 }
