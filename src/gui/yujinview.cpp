@@ -17,8 +17,6 @@ static const QStringList s_treewidget_name = {"装备编号：",
 YuJinView::YuJinView(QWidget *parent) : QWidget(parent), ui(new Ui::YuJinView)
 {
     ui->setupUi(this);
-    setAttribute(Qt::WA_StyledBackground);
-    setStyleSheet("YujinView {background: white;} ");
     setWindowTitle(tr("预警系统资源状态显示"));
 
     // 初始化表格

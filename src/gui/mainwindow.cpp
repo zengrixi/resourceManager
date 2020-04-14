@@ -221,8 +221,7 @@ void MainWindow::on_tree_view_doubleClicked(const QModelIndex &index)
         }
         case kYujin: {
             YuJinView *yujin_view = new YuJinView;
-            TopWindow topwindow(yujin_view);
-            topwindow.showModal();
+            MessageBox::window(yujin_view, 800, 800);
             break;
         }
     }
