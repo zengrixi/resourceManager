@@ -94,7 +94,7 @@
   </widget>
   <action name="action_loadxml">
    <property name="icon">
-    <iconset resource="../../top-window-resources.qrc">
+    <iconset resource="../../../configControl/top-window-resources.qrc">
      <normaloff>:/img/top-window/logo.png</normaloff>:/img/top-window/logo.png</iconset>
    </property>
    <property name="text">
@@ -105,8 +105,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="../../top-window-resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
