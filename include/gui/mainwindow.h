@@ -29,6 +29,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    enum SystemType
+    {
+        kYujin,
+        kZhikong,
+        kLanjie
+    };
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -41,6 +47,8 @@ public Q_SLOTS:
 private Q_SLOTS:
     // 树形控件被点击响应
     void on_tree_view_clicked(const QModelIndex &index);
+    // 树形控件被双击
+    void on_tree_view_doubleClicked(const QModelIndex &index);
 
 private:
     // 初始化树列表
@@ -62,6 +70,7 @@ private:
 
     // 树形窗口
     QMap<QString, QStandardItem *> item_group_;
+    QMap<QString, SystemType> system_type_; // 根据名称获取系统类型
 
     // 反导装备资源信息窗口
 

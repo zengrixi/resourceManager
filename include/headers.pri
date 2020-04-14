@@ -8,6 +8,7 @@ HEADERS += \
         $$PWD/gui/mainwindow.h \
         $$PWD/gui/messagebox.h \
         $$PWD/gui/filebrowse.h \
+        $$PWD/gui/yujinview.h \
 	$$PWD/util/ninepatchpainter.h \
 	$$PWD/util/xmlmap.h \
         $$PWD/model/element.h

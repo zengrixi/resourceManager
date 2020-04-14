@@ -29,7 +29,7 @@ struct ResourceData
     int authorization;     // 授权状态，0 未授权 1已授权
     int equipment_state;   // 装备状态，0 待机 1 准备 2 正常运行 3 表示故障等
     int communicate_state; // 通信状态，0 未通信 1 正在通信
-    Pos position_;         // 阵地位置
+    Pos position;          // 阵地位置
 };
 
 #endif // ELEMENT_H

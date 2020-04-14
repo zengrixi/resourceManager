@@ -4,6 +4,7 @@
 #include <QPushButton>
 
 #include "ui_mainwindow.h"
+#include "yujinview.h"
 
 static const char *s_style_sheet_qss = ":qdarkstyle/style.qss";
 
@@ -16,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setWindowTitle(tr("资源调度管理软件"));
 
     // 设置左右窗体的比例为1:9
-    ui->splitter->setStretchFactor(0, 3);
-    ui->splitter->setStretchFactor(1, 7);
+    ui->splitter->setStretchFactor(0, 2);
+    ui->splitter->setStretchFactor(1, 8);
 
     // loadStyle(); // 加载样式表文件
     initTreeWidget();     // 初始化树形面板
@@ -26,7 +27,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     connect(ui->action_loadxml, &QAction::triggered, this, &MainWindow::loadXMLWindow);
 
-    for (int i = 0; i < 100; i++){}
+    for (int i = 0; i < 100; i++)
+    {
+    }
 }
 
 MainWindow::~MainWindow()
@@ -116,6 +119,12 @@ void MainWindow::initTreeWidget()
     item_group_.insert(QStringLiteral("预警雷达"), item_early);
     item_group_.insert(QStringLiteral("识别雷达"), item_identify);
     item_group_.insert(QStringLiteral("空基探测装备"), item_detection);
+
+    // 保存类型名称
+    system_type_.insert(QStringLiteral("预警卫星"), kYujin);
+    system_type_.insert(QStringLiteral("预警雷达"), kYujin);
+    system_type_.insert(QStringLiteral("识别雷达"), kYujin);
+    system_type_.insert(QStringLiteral("空基探测装备"), kYujin);
 }
 
 // 初始化反导装备资源信息窗口
@@ -199,4 +208,22 @@ void MainWindow::on_tree_view_clicked(const QModelIndex &index)
     str += QStringLiteral("当前选中：%1\nrow:%2,column:%3\n").arg(index.data().toString()).arg(index.row()).arg(index.column());
     str += QStringLiteral("父级：%1\n").arg(index.parent().data().toString());
     qDebug() << str;
+}
+void MainWindow::on_tree_view_doubleClicked(const QModelIndex &index)
+{
+    // 获取类型
+    SystemType type = system_type_.find(index.data().toString()).value();
+    //
+    switch (type)
+    {
+        default: {
+            break;
+        }
+        case kYujin: {
+            YuJinView *yujin_view = new YuJinView;
+            TopWindow topwindow(yujin_view);
+            topwindow.showModal();
+            break;
+        }
+    }
 }

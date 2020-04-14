@@ -53,26 +53,29 @@
         </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
         <item>
-         <widget class="QTableWidget" name="tableWidget"/>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>反导装备资源信息窗口</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QTableWidget" name="tableWidget"/>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget_2"/>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>作战过程输出窗口</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QTableWidget" name="tableWidget_2"/>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -94,7 +97,7 @@
   </widget>
   <action name="action_loadxml">
    <property name="icon">
-    <iconset resource="../../../configControl/top-window-resources.qrc">
+    <iconset resource="../../top-window-resources.qrc">
      <normaloff>:/img/top-window/logo.png</normaloff>:/img/top-window/logo.png</iconset>
    </property>
    <property name="text">
@@ -105,6 +108,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../top-window-resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
