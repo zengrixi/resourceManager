@@ -9,6 +9,8 @@ HEADERS += \
         $$PWD/gui/messagebox.h \
         $$PWD/gui/filebrowse.h \
         $$PWD/gui/yujinview.h \
+        $$PWD/gui/zhikongview.h \
+        $$PWD/gui/lanjieview.h \
 	$$PWD/util/ninepatchpainter.h \
 	$$PWD/util/xmlmap.h \
         $$PWD/model/element.h

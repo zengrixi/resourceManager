@@ -5,6 +5,8 @@
 
 #include "ui_mainwindow.h"
 #include "yujinview.h"
+#include "zhikongview.h"
+#include "lanjieview.h"
 
 static const char *s_style_sheet_qss = ":qdarkstyle/style.qss";
 
@@ -125,6 +127,17 @@ void MainWindow::initTreeWidget()
     system_type_.insert(QStringLiteral("预警雷达"), kYujin);
     system_type_.insert(QStringLiteral("识别雷达"), kYujin);
     system_type_.insert(QStringLiteral("空基探测装备"), kYujin);
+
+    // TEST
+    QStandardItem *item_zhikongtest = new QStandardItem(QStringLiteral("指控测试"));
+    model->appendRow(item_zhikongtest);
+    item_group_.insert(QStringLiteral("指控测试"), item_zhikongtest);
+    system_type_.insert(QStringLiteral("指控测试"), kZhikong);
+
+    QStandardItem *item_lanjietest = new QStandardItem(QStringLiteral("拦截测试"));
+    model->appendRow(item_lanjietest);
+    item_group_.insert(QStringLiteral("拦截测试"), item_lanjietest);
+    system_type_.insert(QStringLiteral("拦截测试"), kLanjie);
 }
 
 // 初始化反导装备资源信息窗口
@@ -216,12 +229,19 @@ void MainWindow::on_tree_view_doubleClicked(const QModelIndex &index)
     //
     switch (type)
     {
-        default: {
-            break;
-        }
         case kYujin: {
             YuJinView *yujin_view = new YuJinView;
             MessageBox::window(yujin_view, 800, 800);
+            break;
+        }
+        case kZhikong: {
+            ZhiKongView *zhikong_view = new ZhiKongView;
+            MessageBox::window(zhikong_view, 800, 800);
+            break;
+        }
+        case kLanjie: {
+            LanjieView *lanjie_view = new LanjieView;
+            MessageBox::window(lanjie_view, 800, 800);
             break;
         }
     }

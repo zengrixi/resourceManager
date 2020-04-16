@@ -19,10 +19,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES +=  \
     src/gui/filebrowse.cpp \
+    src/gui/lanjieview.cpp \
     src/gui/topwindow.cpp \
     src/gui/messagebox.cpp \
     src/gui/mainwindow.cpp \
     src/gui/yujinview.cpp \
+    src/gui/zhikongview.cpp \
     src/main.cpp \
     src/util/ninepatchpainter.cpp \
     src/util/xmlmap.cpp
@@ -43,10 +45,12 @@ RESOURCES +=  \
 
 FORMS +=  \
     src/gui/filebrowse.ui \
+    src/gui/lanjieview.ui \
     src/gui/mainwindow.ui \
     src/gui/messagebox.ui \
     src/gui/topwindow.ui \
-    src/gui/yujinview.ui
+    src/gui/yujinview.ui \
+    src/gui/zhikongview.ui
 
 # 配置执行文件所在目录
 CONFIG(debug, release|debug) {
